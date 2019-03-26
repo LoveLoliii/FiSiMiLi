@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+            app:startDestination="@id/searchFragment"
+>
+    <fragment android:id="@+id/searchFragment" android:name="com.summersama.fisimili.ui.search.SearchFragment"
+              android:label="search_fragment" tools:layout="@layout/search_fragment">
+        <action android:id="@+id/action_searchFragment_to_songDetailFragment"
+                app:destination="@id/songDetailFragment"/>
+    </fragment>
+    <fragment android:id="@+id/songDetailFragment"
+              android:name="com.summersama.fisimili.ui.songdetail.SongDetailFragment"
+              android:label="song_detail_fragment" tools:layout="@layout/song_detail_fragment"/>
+    <fragment
+            android:id="@+id/all_dest"
+            android:name="com.summersama.fisimili.ui.all.AllSongFragment"
+            android:label="all song"
+            tools:layout="@layout/all_song_fragment">
+    </fragment>
+
+</navigation>

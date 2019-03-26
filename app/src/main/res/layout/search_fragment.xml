@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.search.SearchFragment">
+    <ImageView
+        android:id="@+id/water_ball"
+        android:layout_width="90sp"
+        android:layout_height="90sp"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+
+    <ImageView
+            android:id="@+id/water_ball_2"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_3"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_2" tools:ignore="MissingConstraints"/>
+
+
+    <ImageView
+            android:id="@+id/water_ball_4"
+            android:layout_width="70sp"
+            android:layout_height="70sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_5"
+            android:layout_width="80sp"
+            android:layout_height="80sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_2" tools:ignore="MissingConstraints"/>
+
+
+    <ImageView
+            android:id="@+id/water_ball_6"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_7"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+
+    <ImageView
+            android:id="@+id/water_ball_8"
+            android:layout_width="70sp"
+            android:layout_height="70sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_2" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_9"
+            android:layout_width="110sp"
+            android:layout_height="110sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_10"
+            android:layout_width="120sp"
+            android:layout_height="120sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_2" tools:ignore="MissingConstraints"/>
+
+
+    <SearchView
+
+            android:id="@+id/am_query_input"
+            android:layout_marginTop="0dp"
+            android:queryHint="input"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+
+
+            android:id="@+id/am_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/recycler_view_item" app:layout_constraintTop_toBottomOf="@+id/am_query_input"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
