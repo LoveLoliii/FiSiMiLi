@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.summersama.fisimili.R
+import com.summersama.fisimili.ui.search.SearchViewModel
 
 class SongDetailFragment : Fragment() {
 
@@ -22,7 +23,7 @@ class SongDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       Log.d("s","sss")
+        Log.d("s", "sss")
         return inflater.inflate(R.layout.song_detail_fragment, container, false)
     }
 
@@ -30,6 +31,8 @@ class SongDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SongDetailViewModel::class.java)
         // TODO: Use the ViewModel
+        val searchVM = activity?.run { ViewModelProviders.of(this).get(SearchViewModel::class.java) }
+        
     }
 
 }

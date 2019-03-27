@@ -1,4 +1,4 @@
-package com.summersama.je_a.entity
+package com.summersama.fisimili.data
 
 import android.os.Parcel
 import android.os.Parcelable

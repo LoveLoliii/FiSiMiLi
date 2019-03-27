@@ -1,4 +1,7 @@
-package com.summersama.je_a.entity
+package com.summersama.fisimili.data
+
+import com.summersama.fisimili.data.IssuesInfo
+
 class SearchInfo{
     var total_count:Int=0
     var incomplete_results:Boolean = false

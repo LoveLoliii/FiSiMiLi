@@ -11,13 +11,16 @@ import com.google.android.material.navigation.NavigationView
 import androidx.navigation.ui.setupWithNavController
 
 class SearchActivity : AppCompatActivity() {
-
+    object Instance{
+        val instance:SearchActivity = SearchActivity()
+    }
+    lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_activity)
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.sf) as NavHostFragment? ?: return
-        val navController = host.navController
+       navController = host.navController
 
 
         setupNavigationMenu(navController)

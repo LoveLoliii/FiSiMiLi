@@ -1,5 +1,6 @@
 package com.summersama.fisimili.ui.search
 
+import android.app.Activity
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -13,23 +14,58 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.summersama.fisimili.R
-import com.summersama.je_a.entity.IssuesInfo
-import com.summersama.je_a.entity.SearchInfo
+import com.summersama.fisimili.adapter.SongListAdapter
+import com.summersama.fisimili.utils.DataCallback
+import com.summersama.fisimili.data.IssuesInfo
+import com.summersama.fisimili.data.SearchInfo
 import kotlinx.android.synthetic.main.search_fragment.*
-import java.io.IOException
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), DataCallback {
+
+    override fun failure(msg: String) {
+        Log.e(activity?.localClassName, msg)
+    }
+
+    override fun successful(searchInfo: SearchInfo) {
+        a?.runOnUiThread{
+            issues = MutableLiveData<List<IssuesInfo>>()
+
+            Log.d("UITh", Thread.currentThread().id.toString())
+            issues.value = searchInfo.items
+          /*  adapter = SongListAdapter(searchInfo.items, ctx = this.context!!)
+            val layoutManager = object : LinearLayoutManager(activity) {
+            }
+            layoutManager.orientation = RecyclerView.VERTICAL
+            am_recycle_view.layoutManager = layoutManager
+            am_recycle_view.adapter = adapter*/
+            issues .observe(this, Observer<List<IssuesInfo>> { issues ->
+                // update UI
+                Log.d(activity?.localClassName, issues[0].title)
+                adapter = SongListAdapter(issues, ctx = this.context!!)
+                val layoutManager = object : LinearLayoutManager(activity) {
+                }
+                layoutManager.orientation = RecyclerView.VERTICAL
+                am_recycle_view.layoutManager = layoutManager
+                am_recycle_view.adapter = adapter
+
+            })
+        }
+
+
+    }
 
     companion object {
         fun newInstance() = SearchFragment()
     }
-
-    private lateinit var viewModel: SearchViewModel
+    var a : Activity? =getActivity()
+    lateinit var issues: MutableLiveData<List<IssuesInfo>>
+    lateinit var viewModel: SearchViewModel
+    lateinit var adapter: SongListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,39 +77,46 @@ class SearchFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
+        viewModel = ViewModelProviders.of(this.activity!!).get(SearchViewModel::class.java)
         init();
-        viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
-        // TODO: Use the ViewModel
 
     }
 
     private fun init() {
         randomWaterBallAnimation();
-        val id:Int = am_query_input.context.resources.getIdentifier("android:id/search_src_text",null,null)
+        val id: Int = am_query_input.context.resources.getIdentifier("android:id/search_src_text", null, null)
         val textView = am_query_input.findViewById<TextView>(id)
         textView.setTextColor(Color.parseColor("#66ccff"))
         am_query_input.setIconifiedByDefault(false)
-        am_query_input.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener{
+        am_query_input.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
-
-                Toast.makeText(activity,newText,Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, newText, Toast.LENGTH_SHORT).show();
                 return false
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-               getSearchResult(query.toString())
+                getSearchResult(query.toString())
                 return false
             }
 
         })
     }
 
-    private fun getSearchResult(query:String) {
+    private fun getSearchResult(query: String) {
 
-        viewModel.getIssues(query).observe(this, Observer<List<IssuesInfo>> { issues->
-            // update UI
-            Log.d(activity?.localClassName,issues[0].title)
-        })
+        viewModel.getIssues(query.also { Log.d("iss", query) }, true, this)
+          /*  .observe(this, Observer<List<IssuesInfo>> { issues ->
+                // update UI
+                Log.d(activity?.localClassName, issues[0].title)
+                adapter = SongListAdapter(issues, ctx = this.context!!)
+                val layoutManager = object : LinearLayoutManager(activity) {
+                }
+                layoutManager.orientation = RecyclerView.VERTICAL
+                am_recycle_view.layoutManager = layoutManager
+                am_recycle_view.adapter = adapter
+
+            })*/
     }
 
     private fun randomWaterBallAnimation() {
@@ -188,7 +231,6 @@ class SearchFragment : Fragment() {
         mAnimation8.repeatMode = Animation.REVERSE
         mAnimation8.interpolator = LinearInterpolator()
         water_ball_8.setAnimation(mAnimation8)
-
 
 
         val mAnimation10: TranslateAnimation

@@ -1,4 +1,4 @@
-package com.summersama.je_a.entity
+package com.summersama.fisimili.data
 
 class SongDownloadInfo {
     val url:String=""
