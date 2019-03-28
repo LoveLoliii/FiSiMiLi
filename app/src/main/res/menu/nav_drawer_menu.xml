@@ -2,12 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/primary">
         <item
+
                 android:id="@id/searchFragment"
-                android:icon="@drawable/ic_launcher_background"
-                android:title="search" />
+                android:icon="@drawable/search"
+                android:title="搜索" />
         <item
                 android:id="@id/all_dest"
-                android:icon="@drawable/ic_launcher_background"
-                android:title="all" />
+                android:icon="@drawable/book"
+                android:title="查看全部" />
     </group>
 </menu>

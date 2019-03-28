@@ -28,6 +28,9 @@ class SongListAdapter(val list:List<IssuesInfo>, val ctx: Context) :
     }
 
     override fun onBindViewHolder(holder: SongHolder, position: Int) {
+        if(list.size-1 == position){
+
+        }
         holder.textView.text = list[position].title
       //  holder.bodyTx.setText(list[position].body)
         holder.textView.setOnClickListener{

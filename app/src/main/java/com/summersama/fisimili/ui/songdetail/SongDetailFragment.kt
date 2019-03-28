@@ -1,5 +1,7 @@
 package com.summersama.fisimili.ui.songdetail
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.media.MediaPlayer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -22,6 +24,8 @@ import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.song_detail_fragment.*
 import ru.noties.markwon.Markwon
 import ru.noties.markwon.image.ImagesPlugin
+
+
 
 class SongDetailFragment : Fragment() {
     var url:String=""
@@ -76,8 +80,13 @@ class SongDetailFragment : Fragment() {
         markwon.setMarkdown(asd_body_tx, iss.body)
         getMusicDownLoadPath(iss)
         asd_play_btn.setOnClickListener {
-            if (url != ""){
-                if(mediaPlayer != null){
+            val alertDialogBuilder = AlertDialog.Builder(activity)
+            alertDialogBuilder.setTitle("注意")
+            alertDialogBuilder.setMessage("播放将消耗大量流量，请在有WiFi连接下使用!")
+            alertDialogBuilder.setPositiveButton("确定"
+            ) { dialog, _ ->
+                dialog.dismiss()
+                if (url != ""){
                     if(mediaPlayer.isPlaying){
                         mediaPlayer.pause()
                         asd_play_btn.setBackgroundResource(android.R.drawable.ic_media_play)
@@ -89,14 +98,12 @@ class SongDetailFragment : Fragment() {
                         mediaPlayer.start()
                         asd_play_btn.setBackgroundResource(R.drawable.pause)
                     }
-                }else{
-                    mediaPlayer  = MediaPlayer()
-                    mediaPlayer.setDataSource(url)
-                    mediaPlayer.prepare()
-                    mediaPlayer.start()
-                    asd_play_btn.setBackgroundResource(android.R.drawable.ic_media_play)
                 }
-            }
+            };
+            alertDialogBuilder.setNegativeButton("取消"){ dialog, _ ->
+                dialog.dismiss()
+            };
+            alertDialogBuilder.create().show()
         }
 
     }

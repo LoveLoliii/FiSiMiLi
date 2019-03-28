@@ -63,7 +63,6 @@ class SearchFragment : Fragment(){
             if (issues.isNotEmpty()){
                 Log.d(activity?.localClassName, issues[0].title)
             }
-
             adapter = SongListAdapter(issues, ctx = this.context!!)
             val layoutManager = object : LinearLayoutManager(activity) {
             }
