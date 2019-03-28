@@ -2,82 +2,71 @@ package com.summersama.fisimili.ui.search
 
 
 import android.util.Log
-import androidx.fragment.app.FragmentActivity
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.summersama.fisimili.data.SearchRepository
-import com.summersama.fisimili.utils.ConstantUtils
-import com.summersama.fisimili.utils.DataCallback
 import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.data.SearchInfo
+import com.summersama.fisimili.utils.FApplication.Companion.context
+import kotlinx.coroutines.launch
 
-class SearchViewModel : ViewModel(),DataCallback {
+class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
 
-    override fun failure(msg: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun successful(searchInfo: SearchInfo) {
-        Log.d("successful",searchInfo.toString())
-        this.searchInfo =searchInfo
-        this.flag = true
-        searchFragment.successful(searchInfo)
-    }
-
-
-    /*    private val _data = MutableLiveData<String>()
-        val data:LiveData<String>
-        get() =_data
-        init {
-            _data.value = "Jetpack"
-        }*/
     private var query = ""
     private var netState: Boolean = true
     private var searchInfo = SearchInfo()
-    private var searchFragment=SearchFragment()
+    private var searchFragment = SearchFragment()
     var flag = false
     //  lateinit var issues: MutableLiveData<List<IssuesInfo>>
-    private val issues: MutableLiveData<List<IssuesInfo>> by lazy {
+    var issues= MutableLiveData<List<IssuesInfo>>() /*by lazy {
         MutableLiveData<List<IssuesInfo>>().also {
             loadIssues()
         }
-    }
+    }*/
 
-    fun getIssues(query: String, netState: Boolean, searchFragment: SearchFragment) : MutableLiveData<List<IssuesInfo>>{
+    fun getIssues(query: String, netState: Boolean) {
+
         this.query = query
+        // 网络状态
         this.netState = netState
-      //  Thread.sleep(1000)
-        if(flag){
+        //  Thread.sleep(1000)
+        if (this.netState) {
             loadIssues()
         }
-        return issues
+
     }
 
-    fun getIssuesData(): MutableLiveData<List<IssuesInfo>> {
-        return issues
-    }
 
     private fun loadIssues() {
         // Do an asynchronous operation to fetch users.
-        Log.d("svm", query);
-            val searchRepository = SearchRepository.Instance.instance
-
-            var url = ConstantUtils.QUERY_URL + "&q=" + query + "+state:open+repo:zytx121/je"
-
-            if (netState) {
-                searchRepository.getSearchResultOnline(url,this)
-             //  issues.value=searchInfo.items
-             //   issues.value=searchInfo.items
-
-
-            } else {
-                searchRepository.getSearchResultOffline(query)
-            }
-
-
-
+        launch {
+            //issues = MutableLiveData()
+            Log.d("svm", query);
+            var url = "sort=created&order=desc&q=$query+state:open+repo:zytx121/je"
+            val sort = "created"
+            val order = "desc"
+            val q = "$query+state:open+repo:zytx121/je"
+            //url = URLEncoder.encode(url,"utf-8")
+            issues.value=(repository.getSearchResultOnline(sort,order,q))
+        }
 
 
     }
 
+    private fun launch(block: suspend () -> Unit) = viewModelScope.launch {
+        try {
+            //isLoading.value = true
+            //dataList.clear()
+            block()
+            //dataChanged.value = dataChanged.value?.plus(1)
+            //isLoading.value = false
+        } catch (t: Throwable) {
+            t.printStackTrace()
+            Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+            //dataChanged.value = dataChanged.value?.plus(1)
+            //isLoading.value = false
+        }
+    }
 }

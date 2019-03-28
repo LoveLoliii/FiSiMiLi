@@ -23,46 +23,17 @@ import com.summersama.fisimili.adapter.SongListAdapter
 import com.summersama.fisimili.utils.DataCallback
 import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.data.SearchInfo
+import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.search_fragment.*
 
-class SearchFragment : Fragment(), DataCallback {
-
-    override fun failure(msg: String) {
-        Log.e(activity?.localClassName, msg)
-    }
-
-    override fun successful(searchInfo: SearchInfo) {
-        a?.runOnUiThread{
-            issues = MutableLiveData<List<IssuesInfo>>()
-
-            Log.d("UITh", Thread.currentThread().id.toString())
-            issues.value = searchInfo.items
-          /*  adapter = SongListAdapter(searchInfo.items, ctx = this.context!!)
-            val layoutManager = object : LinearLayoutManager(activity) {
-            }
-            layoutManager.orientation = RecyclerView.VERTICAL
-            am_recycle_view.layoutManager = layoutManager
-            am_recycle_view.adapter = adapter*/
-            issues .observe(this, Observer<List<IssuesInfo>> { issues ->
-                // update UI
-                Log.d(activity?.localClassName, issues[0].title)
-                adapter = SongListAdapter(issues, ctx = this.context!!)
-                val layoutManager = object : LinearLayoutManager(activity) {
-                }
-                layoutManager.orientation = RecyclerView.VERTICAL
-                am_recycle_view.layoutManager = layoutManager
-                am_recycle_view.adapter = adapter
-
-            })
-        }
+class SearchFragment : Fragment(){
 
 
-    }
 
     companion object {
         fun newInstance() = SearchFragment()
     }
-    var a : Activity? =getActivity()
+
     lateinit var issues: MutableLiveData<List<IssuesInfo>>
     lateinit var viewModel: SearchViewModel
     lateinit var adapter: SongListAdapter
@@ -78,8 +49,28 @@ class SearchFragment : Fragment(), DataCallback {
         super.onActivityCreated(savedInstanceState)
 
 
-        viewModel = ViewModelProviders.of(this.activity!!).get(SearchViewModel::class.java)
+        viewModel = ViewModelProviders.of(this.activity!!, InjectorUtil.getSearchModelFactory()).get(SearchViewModel::class.java)
         init();
+        observe()
+    }
+
+    private fun observe() {
+
+        viewModel.issues.observe(this, Observer {
+                issues->
+            Log.d("issue change",issues.toString())
+           // adapter.notifyDataSetChanged()
+            if (issues.isNotEmpty()){
+                Log.d(activity?.localClassName, issues[0].title)
+            }
+
+            adapter = SongListAdapter(issues, ctx = this.context!!)
+            val layoutManager = object : LinearLayoutManager(activity) {
+            }
+            layoutManager.orientation = RecyclerView.VERTICAL
+            am_recycle_view.layoutManager = layoutManager
+            am_recycle_view.adapter = adapter
+        })
 
     }
 
@@ -104,19 +95,26 @@ class SearchFragment : Fragment(), DataCallback {
     }
 
     private fun getSearchResult(query: String) {
-
-        viewModel.getIssues(query.also { Log.d("iss", query) }, true, this)
-          /*  .observe(this, Observer<List<IssuesInfo>> { issues ->
+        // 重新搜索
+       /* viewModel.getIssues(query.also { Log.d("iss", query) }, true, this)
+             .observe(this, Observer<List<IssuesInfo>> { issues ->
                 // update UI
-                Log.d(activity?.localClassName, issues[0].title)
-                adapter = SongListAdapter(issues, ctx = this.context!!)
-                val layoutManager = object : LinearLayoutManager(activity) {
-                }
-                layoutManager.orientation = RecyclerView.VERTICAL
-                am_recycle_view.layoutManager = layoutManager
-                am_recycle_view.adapter = adapter
+                viewModel.issues.postValue(issues)
 
             })*/
+        viewModel.getIssues(query,true)
+       /* viewModel.issues.observe(this, Observer {
+                issues->
+            Log.d("issue change",issues.toString())
+            adapter.notifyDataSetChanged()
+            Log.d(activity?.localClassName, issues[0].title)
+            adapter = SongListAdapter(issues, ctx = this.context!!)
+            val layoutManager = object : LinearLayoutManager(activity) {
+            }
+            layoutManager.orientation = RecyclerView.VERTICAL
+            am_recycle_view.layoutManager = layoutManager
+            am_recycle_view.adapter = adapter
+        })*/
     }
 
     private fun randomWaterBallAnimation() {

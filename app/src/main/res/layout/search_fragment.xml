@@ -85,9 +85,9 @@
     <SearchView
 
             android:id="@+id/am_query_input"
-            android:layout_marginTop="0dp"
             android:queryHint="input"
             android:layout_width="match_parent"
+
             android:layout_height="100dp" app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView

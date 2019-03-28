@@ -23,6 +23,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -31,28 +34,35 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version" // For Kotlin use navigation-fragment-ktx
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version" // For Kotlin use navigation-ui-ktx
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
     implementation 'androidx.core:core-ktx:1.1.0-alpha05'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
     //okhttp
     implementation("com.squareup.okhttp3:okhttp:3.12.1")
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
     //解析数据，Gson方式json
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     //网络日志输出
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     //结合RxJava使用
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+  //  implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     /**************    RxJava库和RxAndroid库 *************/
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+  //  implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+  //  implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //gson
     implementation 'com.google.code.gson:gson:2.8.5'
-
+    // md support
+    implementation "ru.noties.markwon:core:+"
+    implementation "ru.noties.markwon:html:+"
+    implementation "ru.noties.markwon:image-okhttp:+"
 
 
     testImplementation 'junit:junit:4.12'

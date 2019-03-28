@@ -1,24 +1,35 @@
 package com.summersama.fisimili.data
 
-import android.os.HandlerThread
 import android.util.Log
-import com.google.gson.Gson
-import com.summersama.fisimili.ui.search.SearchViewModel
+import com.summersama.fisimili.data.db.SearchDao
+import com.summersama.fisimili.data.network.SearchNetwork
 
-import com.summersama.fisimili.utils.OkHttpUtil
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
-import java.io.IOException
-import java.util.logging.Handler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class SearchRepository{
-    object Instance  {
-        val instance:SearchRepository= SearchRepository()
+class SearchRepository private constructor(private val searchDao: SearchDao, private val network: SearchNetwork){
+    companion object {
+
+        private var instance: SearchRepository? = null
+
+        fun getInstance(searchDao: SearchDao, network: SearchNetwork): SearchRepository {
+            if (instance == null) {
+                synchronized(SearchRepository::class.java) {
+                    if (instance == null) {
+                        instance = SearchRepository(searchDao,network)
+                    }
+                }
+            }
+            return instance!!
+        }
+
     }
     //val s = SearchRepository.Instance.instance
-    fun getSearchResultOnline(url: String, searchViewModel: SearchViewModel): SearchInfo {
-        var searchInfo: SearchInfo = SearchInfo()
+   suspend fun getSearchResultOnline(sort: String, order: String, q: String) = withContext(Dispatchers.IO) {
+Log.d("url",sort+order+q)
+val searchInfo = network.getSearchInfo(sort,order,q)
+
+        searchInfo.items/*
         val call = OkHttpUtil.get(url)
         Log.d("getSearchResultOnline",Thread.currentThread().id.toString())
        call.enqueue(object :Callback{
@@ -32,11 +43,11 @@ class SearchRepository{
                 Log.d("onResponse",Thread.currentThread().id.toString())
                 searchInfo = g.fromJson(result, SearchInfo::class.java)
                 Log.d("onR",result)
-                searchViewModel.successful(searchInfo)
+
             }
         })
         Thread.sleep(1000)
-       return searchInfo
+       return searchInfo*/
     }
 
     fun getSearchResultOffline(query: String) {

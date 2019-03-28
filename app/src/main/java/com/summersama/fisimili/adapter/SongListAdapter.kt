@@ -3,6 +3,7 @@ package com.summersama.fisimili.adapter
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,9 @@ class SongListAdapter(val list:List<IssuesInfo>, val ctx: Context) :
             ctx.startActivity(intent)*/
             // 通过导航视图进行转移
             val navController = Navigation.findNavController(ctx as Activity, R.id.sf)
-            navController.navigate(R.id.songDetailFragment)
+            val bundle:Bundle = Bundle()
+            bundle.putInt("position",position)
+            navController.navigate(R.id.songDetailFragment,bundle)
         }
     }
 
