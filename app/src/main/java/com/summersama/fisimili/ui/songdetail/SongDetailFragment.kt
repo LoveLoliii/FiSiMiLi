@@ -2,6 +2,7 @@ package com.summersama.fisimili.ui.songdetail
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -13,7 +14,10 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
+import android.widget.Toast
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 
 import com.summersama.fisimili.R
@@ -22,14 +26,30 @@ import com.summersama.fisimili.ui.search.SearchViewModel
 import com.summersama.fisimili.utils.FApplication
 import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.song_detail_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import ru.noties.markwon.Markwon
 import ru.noties.markwon.image.ImagesPlugin
+import kotlin.coroutines.CoroutineContext
 
 
+class SongDetailFragment : Fragment(), CoroutineScope {
+    private var job: Job = Job()
 
-class SongDetailFragment : Fragment() {
-    var url:String=""
-    var mediaPlayer:MediaPlayer= MediaPlayer()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
+        job.cancel()
+    }
+
+    var url: String = ""
+    var mediaPlayer: MediaPlayer = MediaPlayer()
+
     companion object {
         fun newInstance() = SongDetailFragment()
     }
@@ -46,73 +66,79 @@ class SongDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this.activity!!, InjectorUtil.getSongDetailModelFactory()).get(SongDetailViewModel::class.java)
+        viewModel = ViewModelProviders.of(this.activity!!, InjectorUtil.getSongDetailModelFactory())
+            .get(SongDetailViewModel::class.java)
         randomWaterBallAnimation();
         observe()
-     //   Thread.sleep(1000)
+        //   Thread.sleep(1000)
         initData()
 
     }
 
     private fun observe() {
         viewModel.path.observe(this, Observer {
-            url=it
-            Log.d(this.javaClass.canonicalName,  it+" pathOnChange")
+            url = it
+            Log.d(this.javaClass.canonicalName, it + " pathOnChange")
         })
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
 
-        mediaPlayer.release()
-    }
     private fun initData() {
-        val searchVM = activity?.run { ViewModelProviders.of(this).get(SearchViewModel::class.java) }
+        //   val searchVM = activity?.run { ViewModelProviders.of(this).get(SearchViewModel::class.java) }
         val bundle = arguments
-        val position = bundle!!.getInt("position")
-        val iss = searchVM!!.issues.value!![position]
-        Glide.with(this.context!!).load(iss.user.avatar_url).into(asd_uppic_iv)
+        val isUrl = bundle!!.getString("url")
+        var iss = IssuesInfo()
+        launch {
+            iss = viewModel.getIssues(isUrl)// searchVM!!.issues.value!![position]
+            Glide.with(FApplication.context).load(iss.user.avatar_url).into(asd_uppic_iv)
 
-        asd_upload_tx.text = iss.user.login
-        val markwon = Markwon.builder(FApplication.context)
-            .usePlugin(ImagesPlugin.create(FApplication.context)).build()
-        markwon.setMarkdown(asd_body_tx, iss.body)
-        getMusicDownLoadPath(iss)
+            asd_upload_tx.text = iss.user.login
+            val markwon = Markwon.builder(FApplication.context)
+                .usePlugin(ImagesPlugin.create(FApplication.context)).build()
+            markwon.setMarkdown(asd_body_tx, iss.body)
+            //
+            getMusicDownLoadPath(iss)
+        }
+
+
+
         asd_play_btn.setOnClickListener {
-            val alertDialogBuilder = AlertDialog.Builder(activity)
-            alertDialogBuilder.setTitle("注意")
-            alertDialogBuilder.setMessage("播放将消耗大量流量，请在有WiFi连接下使用!")
-            alertDialogBuilder.setPositiveButton("确定"
-            ) { dialog, _ ->
-                dialog.dismiss()
-                if (url != ""){
-                    if(mediaPlayer.isPlaying){
-                        mediaPlayer.pause()
-                        asd_play_btn.setBackgroundResource(android.R.drawable.ic_media_play)
-                    }
-                    else{
+            if (!mediaPlayer.isPlaying) {
+                val alertDialogBuilder = AlertDialog.Builder(activity)
+                alertDialogBuilder.setTitle("注意")
+                alertDialogBuilder.setMessage("播放将消耗大量流量，请在有WiFi连接下使用!")
+                alertDialogBuilder.setPositiveButton(
+                    "确定"
+                ) { dialog, _ ->
+                    dialog.dismiss()
+                    if (url != "") {
+                        Log.d("mp play", url)
                         mediaPlayer.reset()
                         mediaPlayer.setDataSource(url)
                         mediaPlayer.prepare()
                         mediaPlayer.start()
                         asd_play_btn.setBackgroundResource(R.drawable.pause)
                     }
-                }
-            };
-            alertDialogBuilder.setNegativeButton("取消"){ dialog, _ ->
-                dialog.dismiss()
-            };
-            alertDialogBuilder.create().show()
+                };
+                alertDialogBuilder.setNegativeButton("取消") { dialog, _ ->
+                    dialog.dismiss()
+                };
+                alertDialogBuilder.create().show()
+            } else {
+                mediaPlayer.pause()
+                asd_play_btn.setBackgroundResource(android.R.drawable.ic_media_play)
+            }
+
         }
 
     }
 
-    private fun getMusicDownLoadPath(iss: IssuesInfo) {
+    private suspend fun getMusicDownLoadPath(iss: IssuesInfo) {
 
         var key = iss.title
-        key = key.replace("_"," ").replace("-"," ")
-        Log.d(this.javaClass.canonicalName, key);
+        key = key.replace("_", " ").replace("-", " ")
+        Log.d("getMusicDownLoadPath:", key);
         viewModel.getPath(key)
     }
 

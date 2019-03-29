@@ -42,7 +42,7 @@ class SongListAdapter(val list:List<IssuesInfo>, val ctx: Context) :
             // 通过导航视图进行转移
             val navController = Navigation.findNavController(ctx as Activity, R.id.sf)
             val bundle:Bundle = Bundle()
-            bundle.putInt("position",position)
+            bundle.putString("url",list[position].url)
             navController.navigate(R.id.songDetailFragment,bundle)
         }
     }

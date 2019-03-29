@@ -10,6 +10,7 @@ import com.summersama.fisimili.data.network.SongDetailNetwork
 import com.summersama.fisimili.utils.ConstantUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 import java.net.URLEncoder
 
 class SongDetailRepository private constructor(private val searchDao: SongDetailDao, private val network: SongDetailNetwork) {
@@ -63,5 +64,11 @@ class SongDetailRepository private constructor(private val searchDao: SongDetail
             val path = network.getPath(p[0].url_id)
             path.url
         }*/
+    }
+
+    suspend fun getIssues(url: String): IssuesInfo = withContext(Dispatchers.IO) {
+
+        network.getIssues(url)
+
     }
 }

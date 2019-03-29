@@ -1,5 +1,6 @@
 package com.summersama.fisimili.data.network.api
 
+import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.data.SearchInfo
 import com.summersama.fisimili.data.SearchSongInfo
 import com.summersama.fisimili.data.SongDownloadInfo
@@ -15,4 +16,6 @@ interface SongDetailService {
     fun getDownloadInfo(@Url url: String): Call<String>
     @GET()
     fun getPath(@Url url: String):Call<String>
+    @GET
+    fun getIssues(@Url url: String): Call<IssuesInfo>
 }

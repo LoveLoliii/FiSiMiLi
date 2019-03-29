@@ -1,7 +1,6 @@
 package com.summersama.fisimili.data.network
 
-import com.summersama.fisimili.data.IssuesInfo
-import com.summersama.fisimili.data.network.api.SearchService
+import com.summersama.fisimili.data.network.api.AllSongService
 import com.summersama.fisimili.data.network.api.SongDetailService
 import com.summersama.fisimili.utils.ConstantUtils
 import retrofit2.Call
@@ -11,26 +10,21 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class SongDetailNetwork {
-
-
-    private val songDetailService = ServiceCreator.create(
-        SongDetailService::class.java,
+class AllSongNetwork {
+    private val allSongService = ServiceCreator.create(
+        AllSongService::class.java,
         ConstantUtils.MOLI_URL
-    )  // api/?callback=jQuery22408246496842419309_
-
-    suspend fun getDownloadInfo(url: String) = songDetailService.getDownloadInfo(url).await()
-    suspend fun getPath(url: String) = songDetailService.getPath(url).await()
-
+    )
+    suspend fun   getIssuesInfo(url:String) = allSongService.getIssuesInfo(url).await()
     companion object {
 
-        private var network: SongDetailNetwork? = null
+        private var network: AllSongNetwork? = null
 
-       open fun getInstance(): SongDetailNetwork {
+        open fun getInstance(): AllSongNetwork {
             if (network == null) {
                 synchronized(SongDetailNetwork::class.java) {
                     if (network == null) {
-                        network = SongDetailNetwork()
+                        network = AllSongNetwork()
                     }
                 }
             }
@@ -38,7 +32,6 @@ class SongDetailNetwork {
         }
 
     }
-
     private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine { continuation ->
             enqueue(object : Callback<T> {
@@ -54,10 +47,4 @@ class SongDetailNetwork {
             })
         }
     }
-
-    suspend fun getIssues(url: String): IssuesInfo {
-        return songDetailService.getIssues(url).await()
-    }
-
-
 }
