@@ -36,6 +36,7 @@ import kotlin.coroutines.CoroutineContext
 
 
 class SongDetailFragment : Fragment(), CoroutineScope {
+    var notice = false
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -105,13 +106,31 @@ class SongDetailFragment : Fragment(), CoroutineScope {
 
         asd_play_btn.setOnClickListener {
             if (!mediaPlayer.isPlaying) {
-                val alertDialogBuilder = AlertDialog.Builder(activity)
-                alertDialogBuilder.setTitle("注意")
-                alertDialogBuilder.setMessage("播放将消耗大量流量，请在有WiFi连接下使用!")
-                alertDialogBuilder.setPositiveButton(
-                    "确定"
-                ) { dialog, _ ->
-                    dialog.dismiss()
+                if (!notice){
+                    val alertDialogBuilder = AlertDialog.Builder(activity)
+                    alertDialogBuilder.setTitle("注意")
+                    alertDialogBuilder.setMessage("播放将消耗大量流量，请在有WiFi连接下使用!")
+                    alertDialogBuilder.setPositiveButton(
+                        "确定"
+                    ) { dialog, _ ->
+                        dialog.dismiss()
+                        if (url != "") {
+                            Log.d("mp play", url)
+                            mediaPlayer.reset()
+                            mediaPlayer.setDataSource(url)
+                            mediaPlayer.prepare()
+                            mediaPlayer.start()
+                            asd_play_btn.setBackgroundResource(R.drawable.pause)
+                        }else{
+                            Toast.makeText(FApplication.context,"未找到该歌曲",Toast.LENGTH_SHORT).show()
+                        }
+                    };
+                    alertDialogBuilder.setNegativeButton("取消") { dialog, _ ->
+                        dialog.dismiss()
+                    };
+                    alertDialogBuilder.create().show()
+                    notice = true
+                }else{
                     if (url != "") {
                         Log.d("mp play", url)
                         mediaPlayer.reset()
@@ -119,12 +138,11 @@ class SongDetailFragment : Fragment(), CoroutineScope {
                         mediaPlayer.prepare()
                         mediaPlayer.start()
                         asd_play_btn.setBackgroundResource(R.drawable.pause)
+                    }else{
+                        Toast.makeText(FApplication.context,"未找到该歌曲",Toast.LENGTH_SHORT).show()
                     }
-                };
-                alertDialogBuilder.setNegativeButton("取消") { dialog, _ ->
-                    dialog.dismiss()
-                };
-                alertDialogBuilder.create().show()
+                }
+
             } else {
                 mediaPlayer.pause()
                 asd_play_btn.setBackgroundResource(android.R.drawable.ic_media_play)

@@ -1,5 +1,6 @@
 package com.summersama.fisimili.data.network
 
+import android.util.Log
 import com.summersama.fisimili.data.network.api.AllSongService
 import com.summersama.fisimili.data.network.api.SongDetailService
 import com.summersama.fisimili.utils.ConstantUtils
@@ -12,8 +13,7 @@ import kotlin.coroutines.suspendCoroutine
 
 class AllSongNetwork {
     private val allSongService = ServiceCreator.create(
-        AllSongService::class.java,
-        ConstantUtils.MOLI_URL
+        AllSongService::class.java
     )
     suspend fun   getIssuesInfo(url:String) = allSongService.getIssuesInfo(url).await()
     companion object {
@@ -41,6 +41,7 @@ class AllSongNetwork {
 
                 override fun onResponse(call: Call<T>, response: Response<T>) {
                     val body = response.body()
+                    Log.d("etag",response.headers()["ETag"]+response.code())
                     if (body != null) continuation.resume(body)
                     else continuation.resumeWithException(RuntimeException("response body is null"))
                 }

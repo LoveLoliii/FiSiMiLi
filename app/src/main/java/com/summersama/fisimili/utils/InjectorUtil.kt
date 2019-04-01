@@ -3,6 +3,7 @@ package com.summersama.fisimili.utils
 import com.summersama.fisimili.data.AllSongRepository
 import com.summersama.fisimili.data.SearchRepository
 import com.summersama.fisimili.data.SongDetailRepository
+import com.summersama.fisimili.data.db.AllSongDao
 import com.summersama.fisimili.data.db.AllSongDatabase
 import com.summersama.fisimili.data.db.SearchInfoDatabase
 import com.summersama.fisimili.data.db.SongDetailDatabase

@@ -23,6 +23,7 @@ import com.summersama.fisimili.adapter.SongListAdapter
 import com.summersama.fisimili.utils.DataCallback
 import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.data.SearchInfo
+import com.summersama.fisimili.utils.FApplication
 import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.search_fragment.*
 
@@ -60,6 +61,8 @@ class SearchFragment : Fragment(){
                 issues->
             Log.d("issue change",issues.toString())
            // adapter.notifyDataSetChanged()
+
+            sf_spin_kit.visibility=View.GONE
             if (issues.isNotEmpty()){
                 Log.d(activity?.localClassName, issues[0].title)
             }
@@ -86,6 +89,16 @@ class SearchFragment : Fragment(){
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
+                // 清空recycleview
+                adapter = SongListAdapter(ArrayList(), ctx = FApplication.context)
+                val layoutManager = object : LinearLayoutManager(activity) {
+                }
+                layoutManager.orientation = RecyclerView.VERTICAL
+                am_recycle_view.layoutManager = layoutManager
+                am_recycle_view.adapter = adapter
+
+                //add load animation
+                sf_spin_kit.visibility = View.VISIBLE
                 getSearchResult(query.toString())
                 return false
             }

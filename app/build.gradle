@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: "androidx.navigation.safeargs"
 apply plugin: "androidx.navigation.safeargs.kotlin"
-
+apply plugin: 'kotlin-kapt'
 android {
     // useAndroidX true
     compileSdkVersion 28
@@ -30,6 +30,9 @@ android {
 
 dependencies {
     def nav_version = "2.1.0-alpha01"
+    implementation "androidx.work:work-runtime-ktx:2.0.0"
+    implementation "androidx.room:room-runtime:2.1.0-alpha06"
+    kapt "androidx.room:room-compiler:2.1.0-alpha06"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version" // For Kotlin use navigation-fragment-ktx
@@ -63,7 +66,10 @@ dependencies {
     implementation "ru.noties.markwon:core:+"
     implementation "ru.noties.markwon:html:+"
     implementation "ru.noties.markwon:image-okhttp:+"
-
+    // load more data recycle
+    implementation 'com.lovejjfg.powerrecycle:powerrecycle:+'
+    //
+    implementation 'com.github.ybq:Android-SpinKit:1.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'

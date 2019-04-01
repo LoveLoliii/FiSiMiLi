@@ -1,24 +1,23 @@
 package com.summersama.fisimili.ui.all
 
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagedList
 import com.summersama.fisimili.data.AllSongRepository
 import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.utils.FApplication
 import kotlinx.coroutines.launch
 
 class AllSongViewModel (private val allSongRepository: AllSongRepository): ViewModel() {
-    // TODO: Implement the ViewModel
+
     var allSongList = MutableLiveData<List<IssuesInfo>>()
         //allSongRepository.getAllSongInfo(pageSize = 50)
 
-    fun getList(){
+    fun getList(mPage: Int) {
         launch {
-            allSongList.value = allSongRepository.getAllSongInfo(page = 1,pageSize = 50)
+            allSongList.value = allSongRepository.getAllSongInfo(page = mPage,pageSize = 50)
+
         }
 
     }

@@ -3,11 +3,17 @@ package com.summersama.fisimili.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import org.json.JSONObject
-
+@Entity(tableName = "issues")
 class IssuesInfo(): Parcelable {
 
-
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "iid")
+    val iid: Int = 0
 
     var url: String = ""
     var repository_url: String = ""
@@ -19,6 +25,7 @@ class IssuesInfo(): Parcelable {
     var node_id: String = ""
     var number: Int = 0
     var title: String = ""
+    @Embedded
     var user: User = User()
     var labels:List<JSONObject> = ArrayList() // fixme 不知道该转成啥 就先转JSONObject了
     var state: String = ""
