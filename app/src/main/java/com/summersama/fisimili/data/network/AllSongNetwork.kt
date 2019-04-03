@@ -41,7 +41,7 @@ class AllSongNetwork {
 
                 override fun onResponse(call: Call<T>, response: Response<T>) {
                     val body = response.body()
-                    Log.d("etag",response.headers()["ETag"]+response.code())
+                    Log.d("X-RateLimit-Remaining ",response.headers()["X-RateLimit-Remaining"]+" 状态码:"+response.code())
                     if (body != null) continuation.resume(body)
                     else continuation.resumeWithException(RuntimeException("response body is null"))
                 }

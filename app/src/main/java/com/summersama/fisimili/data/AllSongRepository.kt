@@ -11,12 +11,21 @@ import com.summersama.fisimili.data.db.SongDetailDao
 import com.summersama.fisimili.data.network.AllSongNetwork
 import com.summersama.fisimili.data.network.SearchNetwork
 import com.summersama.fisimili.data.network.SongDetailNetwork
+import com.summersama.fisimili.utils.FApplication
+import com.summersama.fisimili.utils.FUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class AllSongRepository private constructor(private val allSongDao: AllSongDao, private val network: AllSongNetwork) {
+    lateinit var token :String
     suspend   fun getAllSongInfo(page:Int,pageSize: Int):  List<IssuesInfo>? = withContext(Dispatchers.IO) {
-                val url = "https://api.github.com/repos/zytx121/je/issues?page=$page&per_page=$pageSize"
+                var url = "https://api.github.com/repos/zytx121/je/issues?page=$page&per_page=$pageSize"
+               token = FUtils().getToken(ctx = FApplication.context,key = "token")
+
+                if (  token != ""){
+                    url="https://api.github.com/repos/zytx121/je/issues?access_token=$token&page=$page&per_page=$pageSize"
+                }
+
                 // try get data from local
                 var rs :List<IssuesInfo> = ArrayList()//allSongDao.getIssuesInfos(page,pageSize)
                 if (rs.isEmpty()){

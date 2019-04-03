@@ -1,24 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.all.AllSongFragment">
+        tools:context=".ui.all.AllSongFragment" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+            android:id="@+id/water_ball"
+            android:layout_width="90sp"
+            android:layout_height="90sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+
+    <ImageView
+            android:id="@+id/water_ball_2"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_3"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_2" tools:ignore="MissingConstraints"/>
+
+
+    <ImageView
+            android:id="@+id/water_ball_4"
+            android:layout_width="70sp"
+            android:layout_height="70sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_5"
+            android:layout_width="80sp"
+            android:layout_height="80sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_2" tools:ignore="MissingConstraints"/>
+
+
+    <ImageView
+            android:id="@+id/water_ball_6"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_7"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+
+    <ImageView
+            android:id="@+id/water_ball_8"
+            android:layout_width="70sp"
+            android:layout_height="70sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_2" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_9"
+            android:layout_width="110sp"
+            android:layout_height="110sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_1" tools:ignore="MissingConstraints"/>
+
+    <ImageView
+            android:id="@+id/water_ball_10"
+            android:layout_width="120sp"
+            android:layout_height="120sp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/water_ball_2" tools:ignore="MissingConstraints"/>
+
+
     <com.github.ybq.android.spinkit.SpinKitView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/spin_kit"
-            style="@style/SpinKitView.Small.Circle"
+            style="@style/SpinKitView.Small.FadingCircle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             app:SpinKit_Color="@color/light_grey" />
     <androidx.recyclerview.widget.RecyclerView
-
+            app:layout_constraintTop_toBottomOf="parent"
             android:id="@+id/asf_recycle_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             tools:listitem="@layout/recycler_view_item" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,5 +10,11 @@
                 android:id="@id/all_dest"
                 android:icon="@drawable/book"
                 android:title="查看全部" />
+        <item
+                android:icon="@drawable/key"
+                android:title="github Token"
+            android:id="@+id/add_token"
+        />
+
     </group>
 </menu>

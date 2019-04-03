@@ -26,6 +26,7 @@ object ServiceCreator {
         .baseUrl(BASE_URL)
         .client(httpClient.cache(cache).addNetworkInterceptor(Interceptor {
             val rq = it.request()
+            // fixme time out error
             val rp  = it.proceed(rq)
             val serverCache = rp.header("Cache-Control")
             if(TextUtils.isEmpty(serverCache)){

@@ -8,6 +8,8 @@ import com.summersama.fisimili.data.db.SongDetailDao
 import com.summersama.fisimili.data.network.SearchNetwork
 import com.summersama.fisimili.data.network.SongDetailNetwork
 import com.summersama.fisimili.utils.ConstantUtils
+import com.summersama.fisimili.utils.FApplication
+import com.summersama.fisimili.utils.FUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Dispatcher
@@ -65,10 +67,16 @@ class SongDetailRepository private constructor(private val searchDao: SongDetail
             path.url
         }*/
     }
-
+lateinit var token:String
     suspend fun getIssues(url: String): IssuesInfo = withContext(Dispatchers.IO) {
 
-        network.getIssues(url)
+        var x = url
+        token =FUtils().getToken(ctx = FApplication.context,key = "token")
+        if (token != ""){
+            x="$url?access_token=$token"
+        }
+        Log.d("getIssues:", x)
+        network.getIssues(x)
 
     }
 }

@@ -1,8 +1,6 @@
 package com.summersama.fisimili.ui.songdetail
 
 import android.app.AlertDialog
-import android.content.DialogInterface
-import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -15,14 +13,11 @@ import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
 import android.widget.Toast
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 
 import com.summersama.fisimili.R
 import com.summersama.fisimili.data.IssuesInfo
-import com.summersama.fisimili.ui.search.SearchViewModel
 import com.summersama.fisimili.utils.FApplication
 import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.song_detail_fragment.*
@@ -34,9 +29,14 @@ import ru.noties.markwon.Markwon
 import ru.noties.markwon.image.ImagesPlugin
 import kotlin.coroutines.CoroutineContext
 
+import android.os.Handler
+import android.os.Message
+import android.widget.Button
+import java.lang.Exception
+
 
 class SongDetailFragment : Fragment(), CoroutineScope {
-    var notice = false
+    private var notice = false
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -44,12 +44,14 @@ class SongDetailFragment : Fragment(), CoroutineScope {
 
     override fun onDestroy() {
         super.onDestroy()
+        timeUpdateThread.interrupt()
+        seekBarHandler.removeMessages(1)
         mediaPlayer.release()
         job.cancel()
     }
 
     var url: String = ""
-    var mediaPlayer: MediaPlayer = MediaPlayer()
+    private var mediaPlayer: MediaPlayer = MediaPlayer()
 
     companion object {
         fun newInstance() = SongDetailFragment()
@@ -71,7 +73,7 @@ class SongDetailFragment : Fragment(), CoroutineScope {
             .get(SongDetailViewModel::class.java)
         randomWaterBallAnimation();
         observe()
-        //   Thread.sleep(1000)
+        timeUpdateThread.start()
         initData()
 
     }
@@ -80,16 +82,67 @@ class SongDetailFragment : Fragment(), CoroutineScope {
         viewModel.path.observe(this, Observer {
             url = it
             Log.d(this.javaClass.canonicalName, it + " pathOnChange")
+            asd_play_btn.visibility = Button.VISIBLE
         })
 
     }
 
+    private var total = 0
+    private var seekBarHandler = Handler() {
+
+
+        //  super.handleMessage(it);
+
+        if (it.what == 1) {
+            Log.d(
+                "checkThread",
+                "mediaPlayer isPlaying:${mediaPlayer.isPlaying} and total=${total} and current = ${mediaPlayer.currentPosition}"
+            )
+            if (mediaPlayer.isPlaying) {
+                total = mediaPlayer.duration
+                sdf_progress_sk.max = total
+
+                sdf_progress_sk.progress = (mediaPlayer.currentPosition)
+                val pt = Math.round((mediaPlayer.currentPosition / 1000).toDouble())
+                val str = String.format(
+                    "%02d:%02d", pt / 60,
+                    pt % 60
+                )
+                sdf_start_tx.text = str
+            } else {
+
+                if (total != 0 && Math.abs(mediaPlayer.currentPosition - total) < 100) {
+                    asd_play_btn.setBackgroundResource(R.drawable.play)
+                }
+            }
+
+        }
+        true
+
+    }
+
+    private val timeUpdateThread = Thread() {
+        kotlin.run {
+            while (true) {
+                try {
+                    Thread.sleep(100)
+                    val message = Message()
+                    message.what = 1
+                    seekBarHandler.sendMessage(message)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    break
+                }
+            }
+        }
+    }
 
     private fun initData() {
         //   val searchVM = activity?.run { ViewModelProviders.of(this).get(SearchViewModel::class.java) }
         val bundle = arguments
         val isUrl = bundle!!.getString("url")
         var iss = IssuesInfo()
+
         launch {
             iss = viewModel.getIssues(isUrl)// searchVM!!.issues.value!![position]
             Glide.with(FApplication.context).load(iss.user.avatar_url).into(asd_uppic_iv)
@@ -106,7 +159,7 @@ class SongDetailFragment : Fragment(), CoroutineScope {
 
         asd_play_btn.setOnClickListener {
             if (!mediaPlayer.isPlaying) {
-                if (!notice){
+                if (!notice) {
                     val alertDialogBuilder = AlertDialog.Builder(activity)
                     alertDialogBuilder.setTitle("注意")
                     alertDialogBuilder.setMessage("播放将消耗大量流量，请在有WiFi连接下使用!")
@@ -115,14 +168,34 @@ class SongDetailFragment : Fragment(), CoroutineScope {
                     ) { dialog, _ ->
                         dialog.dismiss()
                         if (url != "") {
+
                             Log.d("mp play", url)
                             mediaPlayer.reset()
                             mediaPlayer.setDataSource(url)
-                            mediaPlayer.prepare()
-                            mediaPlayer.start()
+                            //  mediaPlayer.prepare()
+                            // 异步装载
+                            mediaPlayer.prepareAsync()
+                            mediaPlayer.setOnPreparedListener {
+                                mediaPlayer.start()
+                                val totalTime = Math.round((mediaPlayer.getDuration() / 1000).toDouble())
+                                val str = String.format(
+                                    "%02d:%02d", totalTime / 60,
+                                    totalTime % 60
+                                )
+                                sdf_end_tx.text = str
+
+                                // seekBarHandler.postDelayed(timeUpdateThread, 1000)
+                            }
+                            //mediaPlayer.start()
+                            mediaPlayer.setOnErrorListener { a, b, c ->
+                                if (a != null && a.isPlaying) {
+                                    a.seekTo(0);
+                                }
+                                false
+                            }
                             asd_play_btn.setBackgroundResource(R.drawable.pause)
-                        }else{
-                            Toast.makeText(FApplication.context,"未找到该歌曲",Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(FApplication.context, "未找到该歌曲", Toast.LENGTH_SHORT).show()
                         }
                     };
                     alertDialogBuilder.setNegativeButton("取消") { dialog, _ ->
@@ -130,22 +203,25 @@ class SongDetailFragment : Fragment(), CoroutineScope {
                     };
                     alertDialogBuilder.create().show()
                     notice = true
-                }else{
+                } else {
                     if (url != "") {
                         Log.d("mp play", url)
-                        mediaPlayer.reset()
-                        mediaPlayer.setDataSource(url)
-                        mediaPlayer.prepare()
+                        /* mediaPlayer.reset()
+                         mediaPlayer.setDataSource(url)
+                         mediaPlayer.prepareAsync()
+                         mediaPlayer.setOnPreparedListener {
+                             mediaPlayer.start()
+                         }*/
                         mediaPlayer.start()
                         asd_play_btn.setBackgroundResource(R.drawable.pause)
-                    }else{
-                        Toast.makeText(FApplication.context,"未找到该歌曲",Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(FApplication.context, "未找到该歌曲", Toast.LENGTH_SHORT).show()
                     }
                 }
 
             } else {
                 mediaPlayer.pause()
-                asd_play_btn.setBackgroundResource(android.R.drawable.ic_media_play)
+                asd_play_btn.setBackgroundResource(R.drawable.play)
             }
 
         }

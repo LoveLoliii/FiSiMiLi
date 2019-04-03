@@ -18,5 +18,12 @@
             android:label="all song"
             tools:layout="@layout/all_song_fragment">
     </fragment>
+    <fragment
+            android:id="@+id/add_token"
+            android:name="com.summersama.fisimili.ui.token.TokenManageFragment"
+            android:label="manage token"
+            tools:layout="@layout/token_manage_fragment"
+    >
 
+    </fragment>
 </navigation>

@@ -1,5 +1,6 @@
 package com.summersama.fisimili.data.network
 
+import android.util.Log
 import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.data.network.api.SearchService
 import com.summersama.fisimili.data.network.api.SongDetailService
@@ -48,6 +49,7 @@ class SongDetailNetwork {
 
                 override fun onResponse(call: Call<T>, response: Response<T>) {
                     val body = response.body()
+                    Log.d("X-RateLimit-Remaining ",response.headers()["X-RateLimit-Remaining"]+" 状态码:"+response.code())
                     if (body != null) continuation.resume(body)
                     else continuation.resumeWithException(RuntimeException("response body is null"))
                 }

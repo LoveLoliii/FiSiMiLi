@@ -3,6 +3,8 @@ package com.summersama.fisimili.data
 import android.util.Log
 import com.summersama.fisimili.data.db.SearchDao
 import com.summersama.fisimili.data.network.SearchNetwork
+import com.summersama.fisimili.utils.FApplication
+import com.summersama.fisimili.utils.FUtils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,9 +27,16 @@ class SearchRepository private constructor(private val searchDao: SearchDao, pri
 
     }
     //val s = SearchRepository.Instance.instance
+    lateinit var token:String
    suspend fun getSearchResultOnline(sort: String, order: String, q: String) = withContext(Dispatchers.IO) {
 Log.d("url",sort+order+q)
-val searchInfo = network.getSearchInfo(sort,order,q)
+       var x = "https://api.github.com/search/issues?q=$q+state:open+repo:zytx121/je&sort=$sort&order=$order"
+       token = FUtils().getToken(ctx = FApplication.context,key = "token")
+       if (token != ""){
+           x="https://api.github.com/search/issues?access_token=$token&q=$q+state:open+repo:zytx121/je&sort=$sort&order=$order"
+       }
+       Log.d("getIssues:", x)
+val searchInfo = network.getSearchInfo(x)//network.getSearchInfo(sort,order,q)
 
         searchInfo.items/*
         val call = OkHttpUtil.get(url)
