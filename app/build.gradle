@@ -70,7 +70,9 @@ dependencies {
     implementation 'com.lovejjfg.powerrecycle:powerrecycle:+'
     //
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
-
+    //jwt
+   // implementation 'com.auth0.android:jwtdecode:1.2.0'
+    implementation 'com.auth0:java-jwt:3.8.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'

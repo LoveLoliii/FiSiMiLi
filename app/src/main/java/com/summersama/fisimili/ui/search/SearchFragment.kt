@@ -23,6 +23,9 @@ import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.utils.FApplication
 import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.search_fragment.*
+import com.summersama.fisimili.utils.FishDrawable
+import android.widget.ImageView
+
 
 class SearchFragment : Fragment(){
 
@@ -72,6 +75,8 @@ class SearchFragment : Fragment(){
     }
 
     private fun init() {
+       /* val ivFish =  iv_fish  as ImageView
+        ivFish.setImageDrawable(FishDrawable(context!!))*/
         randomWaterBallAnimation()
         val id: Int = am_query_input.context.resources.getIdentifier("android:id/search_src_text", null, null)
         val textView = am_query_input.findViewById<TextView>(id)
