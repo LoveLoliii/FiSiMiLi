@@ -1,5 +1,6 @@
 package com.summersama.fisimili.ui.search
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -74,13 +75,14 @@ class SearchFragment : Fragment(){
 
     }
 
+
     private fun init() {
        /* val ivFish =  iv_fish  as ImageView
         ivFish.setImageDrawable(FishDrawable(context!!))*/
         randomWaterBallAnimation()
         val id: Int = am_query_input.context.resources.getIdentifier("android:id/search_src_text", null, null)
         val textView = am_query_input.findViewById<TextView>(id)
-        textView.setTextColor(Color.parseColor("#66ccff"))
+        textView.setTextColor(resources.getColor(R.color.heyelv))
         am_query_input.setIconifiedByDefault(false)
         am_query_input.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
