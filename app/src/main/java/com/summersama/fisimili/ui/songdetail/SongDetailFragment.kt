@@ -20,7 +20,7 @@ import com.summersama.fisimili.R
 import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.utils.FApplication
 import com.summersama.fisimili.utils.InjectorUtil
-import kotlinx.android.synthetic.main.song_detail_fragment.*
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,6 +32,8 @@ import kotlin.coroutines.CoroutineContext
 import android.os.Handler
 import android.os.Message
 import android.widget.Button
+import kotlinx.android.synthetic.main.back_ball_layout.*
+import kotlinx.android.synthetic.main.song_detail_fragment.*
 import java.lang.Exception
 
 

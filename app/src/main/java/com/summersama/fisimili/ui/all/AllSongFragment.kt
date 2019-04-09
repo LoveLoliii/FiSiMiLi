@@ -1,16 +1,17 @@
 package com.summersama.fisimili.ui.all
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
 import android.widget.Toast
+import androidx.core.view.marginBottom
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.summersama.fisimili.adapter.AllSongAdapter
 import com.summersama.fisimili.adapter.SongListAdapter
 import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.all_song_fragment.*
+import kotlinx.android.synthetic.main.back_ball_layout.*
 
 import java.lang.Exception
 
@@ -43,9 +45,30 @@ class AllSongFragment : Fragment() {
         super.onResume()
         Toast.makeText(context,"第${mPage}页",Toast.LENGTH_SHORT).show()
     }
+
+
+
+   fun getVirtualBarHeight(  context:Context):Int {
+        var   vh = 0;
+        val windowManager:WindowManager =  context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val  display = windowManager.getDefaultDisplay();
+        val  dm =   DisplayMetrics();
+        try {
+            @SuppressWarnings("rawtypes")
+            val  c = Class.forName("android.view.Display");
+            @SuppressWarnings("unchecked")
+            val  method = c.getMethod("getRealMetrics", DisplayMetrics::class.java)
+            method.invoke(display, dm);
+            vh = dm.heightPixels - display.getHeight();
+        } catch ( e:Exception) {
+            e.printStackTrace();
+        }
+        return vh;
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         randomWaterBallAnimation()
+
 
         // get page
         val bundle = arguments

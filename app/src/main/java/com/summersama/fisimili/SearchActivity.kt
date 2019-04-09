@@ -16,6 +16,7 @@ import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import android.os.Build
 import android.system.Os
 import android.view.View
+import android.view.WindowManager
 import com.summersama.fisimili.utils.FApplication
 import com.summersama.fisimili.utils.TranslucentStatusUtil
 import kotlinx.android.synthetic.main.top_bar_layout.*
@@ -29,7 +30,7 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_activity)
-
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val decorView = window.decorView
             //让应用主题内容占用系统状态栏的空间,注意:下面两个参数必须一起使用 stable 牢固的
@@ -42,7 +43,8 @@ class SearchActivity : AppCompatActivity() {
         TranslucentStatusUtil.initState(this,topBar )
         //沉浸式状态栏适配
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
+        // 底部导航栏 背景透明
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.sf) as NavHostFragment? ?: return
        navController = host.navController

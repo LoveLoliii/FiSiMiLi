@@ -26,6 +26,7 @@ import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.search_fragment.*
 import com.summersama.fisimili.utils.FishDrawable
 import android.widget.ImageView
+import kotlinx.android.synthetic.main.back_ball_layout.*
 
 
 class SearchFragment : Fragment(){
