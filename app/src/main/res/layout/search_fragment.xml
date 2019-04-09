@@ -6,7 +6,7 @@
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.search.SearchFragment" android:layout_marginBottom="50dp">
+        tools:context=".ui.search.SearchFragment">
     <include layout="@layout/back_ball_layout"/>
     <com.summersama.fisimili.utils.FishDrawableView
             android:layout_width="match_parent"
@@ -51,8 +51,10 @@
 
             android:id="@+id/am_recycle_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             tools:listitem="@layout/recycler_view_item" app:layout_constraintTop_toBottomOf="@+id/am_query_card"
-            android:paddingBottom="50dp"/>
+            android:paddingBottom="50dp"
+
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
