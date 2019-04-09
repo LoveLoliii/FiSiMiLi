@@ -83,6 +83,12 @@ class SearchFragment : Fragment(){
         randomWaterBallAnimation()
         val id: Int = am_query_input.context.resources.getIdentifier("android:id/search_src_text", null, null)
         val textView = am_query_input.findViewById<TextView>(id)
+        val spid = am_query_input.context.resources.getIdentifier("android:id/search_plate",null, null)
+        val mSearchPlate = am_query_input.findViewById<View>(spid)
+        val said = am_query_input.context.resources.getIdentifier("android:id/submit_area",null, null)
+        val mSubmitArea = am_query_input.findViewById<View>(said)
+        mSearchPlate.setBackgroundColor(Color.TRANSPARENT)
+        mSubmitArea.setBackgroundColor(Color.TRANSPARENT)
         textView.setTextColor(resources.getColor(R.color.heyelv))
         am_query_input.setIconifiedByDefault(false)
         am_query_input.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
