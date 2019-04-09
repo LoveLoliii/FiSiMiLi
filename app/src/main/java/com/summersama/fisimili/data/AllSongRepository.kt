@@ -18,12 +18,21 @@ import kotlinx.coroutines.withContext
 
 class AllSongRepository private constructor(private val allSongDao: AllSongDao, private val network: AllSongNetwork) {
     lateinit var token :String
+    lateinit var access_token :String
     suspend   fun getAllSongInfo(page:Int,pageSize: Int):  List<IssuesInfo>? = withContext(Dispatchers.IO) {
                 var url = "https://api.github.com/repos/zytx121/je/issues?page=$page&per_page=$pageSize"
                token = FUtils().getToken(ctx = FApplication.context,key = "token")
 
                 if (  token != ""){
+                    // 检查access_token
+
                     url="https://api.github.com/repos/zytx121/je/issues?access_token=$token&page=$page&per_page=$pageSize"
+                }else{
+                    access_token=FUtils().getToken(ctx = FApplication.context,key = "access_token")
+                    if (access_token != ""){
+                        url="https://api.github.com/repos/zytx121/je/issues?access_token=$token&page=$page&per_page=$pageSize"
+
+                    }
                 }
 
                 // try get data from local

@@ -4,6 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/drawer_layout"
+        android:background="@color/mudanfenhong"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".SearchActivity">
@@ -16,6 +17,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />-->
+        <include layout="@layout/top_bar_layout" />
         <fragment
                 android:id="@+id/sf"
                 android:name="androidx.navigation.fragment.NavHostFragment"

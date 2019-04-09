@@ -68,11 +68,15 @@ class SongDetailRepository private constructor(private val searchDao: SongDetail
         }*/
     }
 lateinit var token:String
+    lateinit var access_token:String
     suspend fun getIssues(url: String): IssuesInfo = withContext(Dispatchers.IO) {
 
         var x = url
         token =FUtils().getToken(ctx = FApplication.context,key = "token")
         if (token != ""){
+            x="$url?access_token=$token"
+        }else{
+            access_token =FUtils().getToken(ctx = FApplication.context,key = "access_token")
             x="$url?access_token=$token"
         }
         Log.d("getIssues:", x)

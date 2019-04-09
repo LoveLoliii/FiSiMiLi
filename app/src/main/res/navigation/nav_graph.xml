@@ -26,4 +26,18 @@
     >
 
     </fragment>
+    <fragment android:id="@+id/github_login"
+              android:name="com.summersama.fisimili.ui.login.GitHubLoginFragment"
+              android:label="github oauth login"
+              tools:layout="@layout/git_hub_login_fragment"
+              >
+
+    </fragment>
+    <fragment android:id="@+id/upload_issues"
+              android:name="com.summersama.fisimili.ui.upload.IssuesUploadFragment"
+              android:label="github oauth login"
+              tools:layout=""
+    >
+
+    </fragment>
 </navigation>

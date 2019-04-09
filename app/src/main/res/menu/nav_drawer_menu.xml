@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/primary">
+        <item android:id="@+id/github_login"
+                android:title="登陆"
+               android:icon="@drawable/login" />
         <item
 
                 android:id="@id/searchFragment"
@@ -14,6 +17,10 @@
                 android:icon="@drawable/key"
                 android:title="github Token"
             android:id="@+id/add_token"
+        />
+        <item android:id="@+id/upload_issues"
+                android:title="上传乐谱"
+              android:icon="@drawable/cloud_upload"
         />
 
     </group>
