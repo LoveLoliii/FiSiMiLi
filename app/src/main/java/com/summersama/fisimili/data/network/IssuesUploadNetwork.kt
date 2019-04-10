@@ -1,9 +1,8 @@
 package com.summersama.fisimili.data.network
 
 import android.util.Log
-import com.summersama.fisimili.data.network.api.AllSongService
-import com.summersama.fisimili.data.network.api.SongDetailService
-import com.summersama.fisimili.utils.ConstantUtils
+import com.summersama.fisimili.data.IssuesInfo
+import com.summersama.fisimili.data.network.api.IssuesUploadService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,20 +10,20 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class AllSongNetwork {
-    private val allSongService = ServiceCreator.create(
-        AllSongService::class.java
+class IssuesUploadNetwork {
+    private val issuesUploadService = ServiceCreator.create(
+        IssuesUploadService::class.java
     )
-    suspend fun   getIssuesInfo(url:String) = allSongService.getIssuesInfo(url).await()
+     suspend fun postIssues(url: String, map: HashMap<String, String>, token: String): List<IssuesInfo> = issuesUploadService.postIssues(url,map,token).await()
     companion object {
 
-        private var network: AllSongNetwork? = null
+        private var network: IssuesUploadNetwork? = null
 
-        open fun getInstance(): AllSongNetwork {
+        open fun getInstance(): IssuesUploadNetwork {
             if (network == null) {
-                synchronized(AllSongNetwork::class.java) {
+                synchronized(IssuesUploadNetwork::class.java) {
                     if (network == null) {
-                        network = AllSongNetwork()
+                        network = IssuesUploadNetwork()
                     }
                 }
             }

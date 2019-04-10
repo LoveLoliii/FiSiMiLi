@@ -55,8 +55,19 @@ class GitHubLoginFragment : Fragment() {
     val newUA= "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProviders.of(this).get(GitHubLoginViewModel::class.java)
         navController = findNavController()
+
+        // 解决返回无法跳出的问题
+        requireActivity().addOnBackPressedCallback {
+            if (targetFragment  is GitHubLoginFragment) {
+                navController.navigate(R.id.searchFragment)
+                true
+            }else
+            false
+        }
+
         // 检查token
         val check = FUtils().getToken(this.context!!,"access_token")
         if (check != "" && check != "bad_verification_code"){
@@ -99,6 +110,7 @@ class GitHubLoginFragment : Fragment() {
                 mapParams.put("client_id",client_id)
                 mapParams.put("code",code)
                 mapParams.put("client_secret",client_secret)
+                mapParams.put("scope","repo")
                 val g = Gson()
                 val ps = g.toJson(mapParams)
                 //ghlf_login_wv.postUrl(url, ps.toByteArray())

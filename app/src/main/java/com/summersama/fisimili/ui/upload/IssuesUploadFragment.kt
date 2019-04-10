@@ -2,6 +2,7 @@ package com.summersama.fisimili.ui.upload
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,14 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
+import android.widget.Toast
+import androidx.lifecycle.Observer
 
 import com.summersama.fisimili.R
+import com.summersama.fisimili.data.UploadSongInfo
+import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.back_ball_layout.*
+import kotlinx.android.synthetic.main.issues_upload_fragment.*
 
 
 class IssuesUploadFragment : Fragment() {
@@ -32,9 +38,32 @@ class IssuesUploadFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         randomWaterBallAnimation()
-        viewModel = ViewModelProviders.of(this).get(IssuesUploadViewModel::class.java)
+        //viewModel = ViewModelProviders.of(this).get(IssuesUploadViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, InjectorUtil.getIssuesUploadModelFactory()).get(IssuesUploadViewModel::class.java)
         // TODO: Use the ViewModel
+        val us = UploadSongInfo()
+
+
+        iuf_submit_btn.setOnClickListener {
+            us.sn = iuf_name_et.text.toString()
+            us.album = iuf_album_et.text.toString()
+            us.lyricist = iuf_lyricist_et.text.toString()
+            us.composer = iuf_composer_et.text.toString()
+            us.composer = iuf_composer_et.text.toString()
+            us.singer = iuf_singer_et.text.toString()
+            us.nmn = iuf_nmn_et.text.toString()
+            Log.i("us",us.toString())
+            viewModel.uploadData(us)
+
+        }
+
+        viewModel.upstate.observe(this, Observer {
+            if (it){
+                Toast.makeText(context,"upload success",Toast.LENGTH_SHORT).show()
+            }
+        })
     }
+
     private fun randomWaterBallAnimation() {
         val mAnimation = TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_PARENT, 0f,
