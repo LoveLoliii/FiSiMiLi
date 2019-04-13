@@ -40,7 +40,7 @@ class IssuesUploadFragment : Fragment() {
         randomWaterBallAnimation()
         //viewModel = ViewModelProviders.of(this).get(IssuesUploadViewModel::class.java)
         viewModel = ViewModelProviders.of(this, InjectorUtil.getIssuesUploadModelFactory()).get(IssuesUploadViewModel::class.java)
-        // TODO: Use the ViewModel
+
         val us = UploadSongInfo()
 
 

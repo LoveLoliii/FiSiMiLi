@@ -55,6 +55,9 @@ class GitHubLoginFragment : Fragment() {
     val newUA= "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        // show dialog to tip
+        FUtils().showAlert(this.context!!,"logined account only use for up api limit,not for create issue")
+
 
         viewModel = ViewModelProviders.of(this).get(GitHubLoginViewModel::class.java)
         navController = findNavController()

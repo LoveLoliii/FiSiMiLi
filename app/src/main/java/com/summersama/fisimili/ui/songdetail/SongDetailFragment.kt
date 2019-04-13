@@ -214,7 +214,32 @@ class SongDetailFragment : Fragment(), CoroutineScope {
                          mediaPlayer.setOnPreparedListener {
                              mediaPlayer.start()
                          }*/
-                        mediaPlayer.start()
+                        /*mediaPlayer.start()
+                        asd_play_btn.setBackgroundResource(R.drawable.pause)*/
+                        Log.d("mp play", url)
+                        mediaPlayer.reset()
+                        mediaPlayer.setDataSource(url)
+                        //  mediaPlayer.prepare()
+                        // 异步装载
+                        mediaPlayer.prepareAsync()
+                        mediaPlayer.setOnPreparedListener {
+                            mediaPlayer.start()
+                            val totalTime = Math.round((mediaPlayer.getDuration() / 1000).toDouble())
+                            val str = String.format(
+                                "%02d:%02d", totalTime / 60,
+                                totalTime % 60
+                            )
+                            sdf_end_tx.text = str
+
+                            // seekBarHandler.postDelayed(timeUpdateThread, 1000)
+                        }
+                        //mediaPlayer.start()
+                        mediaPlayer.setOnErrorListener { a, b, c ->
+                            if (a != null && a.isPlaying) {
+                                a.seekTo(0);
+                            }
+                            false
+                        }
                         asd_play_btn.setBackgroundResource(R.drawable.pause)
                     } else {
                         Toast.makeText(FApplication.context, "未找到该歌曲", Toast.LENGTH_SHORT).show()

@@ -26,7 +26,13 @@ import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.search_fragment.*
 import com.summersama.fisimili.utils.FishDrawable
 import android.widget.ImageView
+import com.summersama.fisimili.utils.FUtils
 import kotlinx.android.synthetic.main.back_ball_layout.*
+import me.shaohui.bottomdialog.BottomDialog
+
+
+
+
 
 
 class SearchFragment : Fragment(){
@@ -108,6 +114,42 @@ class SearchFragment : Fragment(){
                 sf_spin_kit.visibility = View.VISIBLE
                 getSearchResult(query.toString())
                 return false
+            }
+
+        })
+        sf_select_iv.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
+                BottomDialog.create(fragmentManager)
+                    .setViewListener {
+                        // // You can do any of the necessary the operation with the view
+                        val je = it.findViewById<TextView>(R.id.dsl_je_tx)
+                        val ll = it.findViewById<TextView>(R.id.dsl_ll_tx)
+                        je.setOnClickListener{
+                            FUtils().saveToken(context = context!!,key = "url_source",value = "zytx121/je")
+                                    Log.i("searchFragment","save je shpf")
+                            val prev = fragmentManager!!.findFragmentByTag("BottomDialog")
+                            if (prev != null) {
+                                val df = prev as BottomDialog
+                                df.dismiss()
+                            }
+                        }
+                        ll.setOnClickListener {
+                            FUtils().saveToken(context=context!!,key = "url_source",value = "loveloliii/ScoreS")
+                            Log.i("searchFragment","save ll shpf")
+                            val prev = fragmentManager!!.findFragmentByTag("BottomDialog")
+                            if (prev != null) {
+                                val df = prev as BottomDialog
+                                df.dismiss()
+                            }
+                        }
+
+                    }
+                    .setLayoutRes(R.layout.dialog_select_layout)
+                    .setDimAmount(0.1f)            // Dialog window dim amount(can change window background color）, range：0 to 1，default is : 0.2f
+                    .setCancelOutside(false)     // click the external area whether is closed, default is : true
+                    .setTag("BottomDialog")     // setting the DialogFragment tag
+                    .show()
+
             }
 
         })

@@ -9,17 +9,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class IssuesUploadRepository private constructor(private val issuesDao: IssuesDao, private val network: IssuesUploadNetwork)  {
-    suspend fun uploadIssues(map: HashMap<String, String>) :List<IssuesInfo>? = withContext(Dispatchers.IO)  {
+    suspend fun uploadIssues(map: HashMap<String, String>) :IssuesInfo? = withContext(Dispatchers.IO)  {
         val url= "https://api.github.com/repos/loveloliii/ScoreS/issues"
         val token = FUtils().getToken(FApplication.context,"access_token")
 
-        var rs :List<IssuesInfo> = ArrayList()//allSongDao.getIssuesInfos(page,pageSize)
-        if (rs.isEmpty()){
-            // get from net
-            rs =  network.postIssues(url,map, " Basic bG92ZWxvbGlpaTo3NTg1NDkxMjdHaXRIdWI=")
-            // save to local
-            Log.i("create issues result",rs.toString())
-        }
+        var rs :IssuesInfo = IssuesInfo()//allSongDao.getIssuesInfos(page,pageSize)
+        // get from net
+        rs =  network.postIssues(url,map, " Basic bG92ZWxvbGlpaTo3NTg1NDkxMjdHaXRIdWI=")
+        // save to local
+        Log.i("create issues result",rs.toString())
         rs
 
 

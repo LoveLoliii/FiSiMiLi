@@ -21,7 +21,8 @@ class IssuesUploadViewModel(private val issuesUploadRepository: IssuesUploadRepo
         map["body"] = body
         launch  {
             Log.i("body",body)
-            issuesUploadRepository.uploadIssues(map)
+            val rs = issuesUploadRepository.uploadIssues(map)
+            upstate.value = rs != null
         }
     }
 

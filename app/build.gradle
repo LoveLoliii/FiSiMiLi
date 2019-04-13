@@ -14,7 +14,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "0.0.2"
+        versionName "0.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -62,6 +62,8 @@ dependencies {
     //  implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //gson
     implementation 'com.google.code.gson:gson:2.8.5'
+    // dialog
+    implementation  'me.shaohui:bottomdialog:1.1.9'
     // md support
     implementation "ru.noties.markwon:core:+"
     implementation "ru.noties.markwon:html:+"

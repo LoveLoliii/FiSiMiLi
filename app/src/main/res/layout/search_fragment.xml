@@ -17,13 +17,28 @@
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent" android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="2dp">
-        <SearchView
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                        android:orientation="horizontal"
 
-                android:id="@+id/am_query_input"
-                android:queryHint="input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-        />
+        >
+            <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/select"
+                    android:id="@+id/sf_select_iv"
+
+            />
+            <SearchView
+
+                    android:id="@+id/am_query_input"
+                    android:queryHint="input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            />
+        </LinearLayout>
+
     </androidx.cardview.widget.CardView>
     <!--    <ImageView
                 android:id="@+id/iv_fish"

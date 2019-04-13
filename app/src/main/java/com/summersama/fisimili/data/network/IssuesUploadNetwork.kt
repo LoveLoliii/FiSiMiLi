@@ -14,7 +14,7 @@ class IssuesUploadNetwork {
     private val issuesUploadService = ServiceCreator.create(
         IssuesUploadService::class.java
     )
-     suspend fun postIssues(url: String, map: HashMap<String, String>, token: String): List<IssuesInfo> = issuesUploadService.postIssues(url,map,token).await()
+     suspend fun postIssues(url: String, map: HashMap<String, String>, token: String): IssuesInfo = issuesUploadService.postIssues(url,map,token).await()
     companion object {
 
         private var network: IssuesUploadNetwork? = null

@@ -2,12 +2,32 @@ package com.summersama.fisimili.utils
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.DialogInterface
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.summersama.fisimili.data.UploadSongInfo
 import java.lang.StringBuilder
 
-class FUtils {
+open class FUtils {
+    fun showAlert(ctx:Context,  info:String) {
+    showAlert(ctx, info, null);
+}
 
-    open fun getToken(ctx:Context,key:String):String{
+    open fun showAlert(ctx:Context, info: String, onDismiss: DialogInterface.OnDismissListener?) {
+        AlertDialog.Builder(ctx)
+            .setMessage(info)
+            .setPositiveButton("sure", null)
+            .setOnDismissListener(onDismiss)
+            .show()
+    }
+
+    fun showToast(ctx:Context , msg:String ) {
+        Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show();
+    }
+
+
+
+open fun getToken(ctx:Context,key:String):String{
         return ctx.getSharedPreferences(key, MODE_PRIVATE).getString(key, "")
     }
 
@@ -45,6 +65,7 @@ class FUtils {
         stringBuilder.append("\r\n\r\n")
         stringBuilder.append("```")
         stringBuilder.append(us.nmn)
+        stringBuilder.append("\r\n\r\n")
         stringBuilder.append("```")
         stringBuilder.append("\r\n\r\n")
         stringBuilder.append("记谱：")
