@@ -22,7 +22,6 @@ import com.google.gson.Gson
 import com.summersama.fisimili.R
 import com.summersama.fisimili.SearchActivity
 import com.summersama.fisimili.utils.ConstantUtils
-import com.summersama.fisimili.utils.FApplication
 import com.summersama.fisimili.utils.FUtils
 import com.summersama.fisimili.utils.OkHttpUtil
 import kotlinx.android.synthetic.main.git_hub_login_fragment.*

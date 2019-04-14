@@ -69,6 +69,7 @@
 
     />
     <com.summersama.fisimili.utils.FishDrawableView
+            android:id="@+id/sf_fish_fdv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

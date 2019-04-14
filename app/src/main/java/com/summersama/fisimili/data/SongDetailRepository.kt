@@ -3,16 +3,13 @@ package com.summersama.fisimili.data
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.summersama.fisimili.data.db.SearchDao
 import com.summersama.fisimili.data.db.SongDetailDao
-import com.summersama.fisimili.data.network.SearchNetwork
 import com.summersama.fisimili.data.network.SongDetailNetwork
 import com.summersama.fisimili.utils.ConstantUtils
-import com.summersama.fisimili.utils.FApplication
+import com.summersama.fisimili.utils.FNApplication
 import com.summersama.fisimili.utils.FUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 import java.net.URLEncoder
 
 class SongDetailRepository private constructor(private val searchDao: SongDetailDao, private val network: SongDetailNetwork) {
@@ -69,14 +66,15 @@ class SongDetailRepository private constructor(private val searchDao: SongDetail
     }
 lateinit var token:String
     lateinit var access_token:String
+    val context =FNApplication.getContext()
     suspend fun getIssues(url: String): IssuesInfo = withContext(Dispatchers.IO) {
 
         var x = url
-        token =FUtils().getToken(ctx = FApplication.context,key = "token")
+        token =FUtils().getToken(ctx = context,key = "token")
         if (token != ""){
             x="$url?access_token=$token"
         }else{
-            access_token =FUtils().getToken(ctx = FApplication.context,key = "access_token")
+            access_token =FUtils().getToken(ctx = context,key = "access_token")
             x="$url?access_token=$token"
         }
         Log.d("getIssues:", x)

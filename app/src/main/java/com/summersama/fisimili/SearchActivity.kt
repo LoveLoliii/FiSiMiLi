@@ -17,7 +17,6 @@ import android.os.Build
 import android.system.Os
 import android.view.View
 import android.view.WindowManager
-import com.summersama.fisimili.utils.FApplication
 import com.summersama.fisimili.utils.TranslucentStatusUtil
 import kotlinx.android.synthetic.main.top_bar_layout.*
 

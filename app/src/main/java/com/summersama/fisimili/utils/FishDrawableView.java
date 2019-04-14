@@ -1,10 +1,17 @@
 package com.summersama.fisimili.utils;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -16,12 +23,17 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TabHost;
+import android.widget.Toast;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import com.summersama.fisimili.ui.service.DownloadService;
 
 import java.util.Random;
 
@@ -49,6 +61,9 @@ public class FishDrawableView extends RelativeLayout {
     private float y = 0;
     private float radius = 0;
 
+    public void setFishLongClickListener(OnLongClickListener listener){
+        ivFish.setOnLongClickListener(listener);
+    }
 
     public FishDrawableView(Context context) {
         this(context, null);

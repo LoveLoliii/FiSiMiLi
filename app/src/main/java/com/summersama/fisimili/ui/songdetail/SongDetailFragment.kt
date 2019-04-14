@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide
 
 import com.summersama.fisimili.R
 import com.summersama.fisimili.data.IssuesInfo
-import com.summersama.fisimili.utils.FApplication
 import com.summersama.fisimili.utils.InjectorUtil
 
 import kotlinx.coroutines.CoroutineScope
@@ -147,11 +146,11 @@ class SongDetailFragment : Fragment(), CoroutineScope {
 
         launch {
             iss = viewModel.getIssues(isUrl)// searchVM!!.issues.value!![position]
-            Glide.with(FApplication.context).load(iss.user.avatar_url).into(asd_uppic_iv)
+            Glide.with(context!!).load(iss.user.avatar_url).into(asd_uppic_iv)
 
             asd_upload_tx.text = iss.user.login
-            val markwon = Markwon.builder(FApplication.context)
-                .usePlugin(ImagesPlugin.create(FApplication.context)).build()
+            val markwon = Markwon.builder(context!!)
+                .usePlugin(ImagesPlugin.create(context!!)).build()
             markwon.setMarkdown(asd_body_tx, iss.body)
             //
             getMusicDownLoadPath(iss)
@@ -197,7 +196,7 @@ class SongDetailFragment : Fragment(), CoroutineScope {
                             }
                             asd_play_btn.setBackgroundResource(R.drawable.pause)
                         } else {
-                            Toast.makeText(FApplication.context, "未找到该歌曲", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "未找到该歌曲", Toast.LENGTH_SHORT).show()
                         }
                     };
                     alertDialogBuilder.setNegativeButton("取消") { dialog, _ ->
@@ -242,7 +241,7 @@ class SongDetailFragment : Fragment(), CoroutineScope {
                         }
                         asd_play_btn.setBackgroundResource(R.drawable.pause)
                     } else {
-                        Toast.makeText(FApplication.context, "未找到该歌曲", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "未找到该歌曲", Toast.LENGTH_SHORT).show()
                     }
                 }
 

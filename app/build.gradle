@@ -17,38 +17,67 @@ android {
         versionName "0.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    /* buildTypes {
+         release {
+             minifyEnabled false
+             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+         }
+     }*/
+    dataBinding {
+        enabled true
+    }
+    signingConfigs {
+        release {
+            storeFile file('/home/loveloliii/Documents/dev/fsml-ubuntu.jks')
+            storePassword 'loveloliii'
+            keyAlias 'key0'
+            keyPassword 'loveloliii'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+
+            signingConfig signingConfigs.release
         }
     }
-    dataBinding {
-        enabled true
+    buildToolsVersion '28.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     def nav_version = "2.1.0-alpha01"
-    implementation "androidx.work:work-runtime-ktx:2.0.0"
-    implementation "androidx.room:room-runtime:2.1.0-alpha06"
+    implementation 'androidx.work:work-runtime-ktx:2.0.0'
+    implementation 'androidx.room:room-runtime:2.1.0-alpha06'
     kapt "androidx.room:room-compiler:2.1.0-alpha06"
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version" // For Kotlin use navigation-fragment-ktx
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version" // For Kotlin use navigation-ui-ktx
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    // For Kotlin use navigation-fragment-ktx
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    // For Kotlin use navigation-ui-ktx
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
     implementation 'androidx.core:core-ktx:1.1.0-alpha05'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.paging:paging-runtime-ktx:2.1.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     //okhttp
-    implementation("com.squareup.okhttp3:okhttp:3.12.1")
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
     //解析数据，Gson方式json
@@ -63,11 +92,11 @@ dependencies {
     //gson
     implementation 'com.google.code.gson:gson:2.8.5'
     // dialog
-    implementation  'me.shaohui:bottomdialog:1.1.9'
+    implementation 'me.shaohui:bottomdialog:1.1.9'
     // md support
-    implementation "ru.noties.markwon:core:+"
-    implementation "ru.noties.markwon:html:+"
-    implementation "ru.noties.markwon:image-okhttp:+"
+    implementation 'ru.noties.markwon:core:+'
+    implementation 'ru.noties.markwon:html:+'
+    implementation 'ru.noties.markwon:image-okhttp:+'
     // load more data recycle
     implementation 'com.lovejjfg.powerrecycle:powerrecycle:+'
     //

@@ -2,7 +2,7 @@ package com.summersama.fisimili.data.network
 
 import android.text.TextUtils
 import com.summersama.fisimili.utils.ConstantUtils
-import com.summersama.fisimili.utils.FApplication.Companion.context
+import com.summersama.fisimili.utils.FNApplication
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -21,7 +21,7 @@ object ServiceCreator {
  //  val  httpCacheDirectory = File(context.cacheDir,"responses")
 //外部存储
  //   val httpCacheDirectory =  File(context.externalCacheDir,"responses")
-   val cache:Cache = Cache(File(context.cacheDir,"responses"),10*1024)
+   val cache:Cache = Cache(File(FNApplication.getContext().cacheDir,"responses"),10*1024)
     private val builder = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(httpClient.cache(cache).addNetworkInterceptor(Interceptor {

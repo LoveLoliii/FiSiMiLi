@@ -21,147 +21,151 @@
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
         >
-            <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent" android:layout_height="match_parent">
-                <TableRow
+            <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+                <LinearLayout
 
-                        android:layout_height="wrap_content" android:layout_width="match_parent">
-                    <TextView
-                            android:gravity="center"
-                            android:text="@string/song_name"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                    />
-                    <EditText
-                            android:id="@+id/iuf_name_et"
-                            android:gravity="center"
-                            android:layout_weight="3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" android:text="@string/unknown"/>
-                </TableRow>
-                <TableRow
-
-                        android:layout_height="wrap_content" android:layout_width="match_parent">
-                    <TextView
-                            android:gravity="center"
-                            android:text="@string/album"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                    />
-                    <EditText
-                            android:id="@+id/iuf_album_et"
-                            android:gravity="center"
-                            android:layout_weight="3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" android:text="@string/unknown"/>
-                </TableRow>
-                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
-                    <TextView
-                            android:gravity="center"
-                            android:text="@string/lyricist"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                    />
-                    <EditText
-                            android:id="@+id/iuf_lyricist_et"
-                            android:gravity="center"
-                            android:layout_weight="3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" android:text="@string/unknown"/>
-                </TableRow>
-                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
-                    <TextView
-                            android:gravity="center"
-                            android:text="@string/composer"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                    />
-                    <EditText
-                            android:id="@+id/iuf_composer_et"
-                            android:gravity="center"
-                            android:layout_weight="3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" android:text="@string/unknown"/>
-                </TableRow>
-                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
-                    <TextView
-                            android:gravity="center"
-                            android:text="@string/arrangement"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                    />
-                    <EditText
-                            android:id="@+id/iuf_arrangement_et"
-                            android:gravity="center"
-                            android:layout_weight="3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" android:text="@string/unknown"/>
-                </TableRow>
-                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
-                    <TextView
-                            android:gravity="center"
-                            android:text="@string/singer"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                    />
-                    <EditText
-                            android:id="@+id/iuf_singer_et"
-                            android:gravity="center"
-                            android:layout_weight="3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" android:text="@string/unknown"/>
-                </TableRow>
-                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
-                    <TextView
-                            android:gravity="center"
-                            android:text="记谱"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                    />
-                    <EditText
-                            android:id="@+id/iuf_wn_et"
-                            android:gravity="center"
-                            android:layout_weight="3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" android:text="@string/unknown"/>
-                </TableRow>
-                <TableRow
-
-                        android:layout_height="wrap_content" android:layout_width="match_parent">
-                    <TextView
-                            android:gravity="center"
-                            android:text="@string/nmn"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                    />
-                    <EditText
-
-                            android:layout_weight="3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:inputType="textMultiLine"
-                            android:ems="10"
-                            android:id="@+id/iuf_nmn_et"/>
-
-                </TableRow>
-                <TableRow
                         android:gravity="center"
-                        android:layout_height="wrap_content" android:layout_width="match_parent">
-                    <Button
-                            android:id="@+id/iuf_submit_btn"
-                            android:layout_width="wrap_content" android:text="@string/submit"/>
-                </TableRow>
-            </LinearLayout>
+                        android:orientation="vertical"
+                        android:layout_width="match_parent" android:layout_height="match_parent">
+                    <TableRow
+
+                            android:layout_height="wrap_content" android:layout_width="match_parent">
+                        <TextView
+                                android:gravity="center"
+                                android:text="@string/song_name"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                        />
+                        <EditText
+                                android:id="@+id/iuf_name_et"
+                                android:gravity="center"
+                                android:layout_weight="3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" android:text="@string/unknown"/>
+                    </TableRow>
+                    <TableRow
+
+                            android:layout_height="wrap_content" android:layout_width="match_parent">
+                        <TextView
+                                android:gravity="center"
+                                android:text="@string/album"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                        />
+                        <EditText
+                                android:id="@+id/iuf_album_et"
+                                android:gravity="center"
+                                android:layout_weight="3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" android:text="@string/unknown"/>
+                    </TableRow>
+                    <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                        <TextView
+                                android:gravity="center"
+                                android:text="@string/lyricist"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                        />
+                        <EditText
+                                android:id="@+id/iuf_lyricist_et"
+                                android:gravity="center"
+                                android:layout_weight="3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" android:text="@string/unknown"/>
+                    </TableRow>
+                    <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                        <TextView
+                                android:gravity="center"
+                                android:text="@string/composer"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                        />
+                        <EditText
+                                android:id="@+id/iuf_composer_et"
+                                android:gravity="center"
+                                android:layout_weight="3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" android:text="@string/unknown"/>
+                    </TableRow>
+                    <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                        <TextView
+                                android:gravity="center"
+                                android:text="@string/arrangement"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                        />
+                        <EditText
+                                android:id="@+id/iuf_arrangement_et"
+                                android:gravity="center"
+                                android:layout_weight="3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" android:text="@string/unknown"/>
+                    </TableRow>
+                    <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                        <TextView
+                                android:gravity="center"
+                                android:text="@string/singer"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                        />
+                        <EditText
+                                android:id="@+id/iuf_singer_et"
+                                android:gravity="center"
+                                android:layout_weight="3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" android:text="@string/unknown"/>
+                    </TableRow>
+                    <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                        <TextView
+                                android:gravity="center"
+                                android:text="记谱"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                        />
+                        <EditText
+                                android:id="@+id/iuf_wn_et"
+                                android:gravity="center"
+                                android:layout_weight="3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" android:text="@string/unknown"/>
+                    </TableRow>
+                    <TableRow
+
+                            android:layout_height="wrap_content" android:layout_width="match_parent">
+                        <TextView
+                                android:gravity="center"
+                                android:text="@string/nmn"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                        />
+                        <EditText
+
+                                android:layout_weight="3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:inputType="textMultiLine"
+                                android:ems="10"
+                                android:id="@+id/iuf_nmn_et"/>
+
+                    </TableRow>
+                    <TableRow
+                            android:gravity="center"
+                            android:layout_height="wrap_content" android:layout_width="match_parent">
+                        <Button
+                                android:id="@+id/iuf_submit_btn"
+                                android:layout_width="wrap_content" android:text="@string/submit"/>
+                    </TableRow>
+                </LinearLayout>
+            </ScrollView>
+
 
 
         </androidx.cardview.widget.CardView>

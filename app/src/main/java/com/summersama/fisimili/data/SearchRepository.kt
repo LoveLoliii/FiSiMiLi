@@ -3,7 +3,7 @@ package com.summersama.fisimili.data
 import android.util.Log
 import com.summersama.fisimili.data.db.SearchDao
 import com.summersama.fisimili.data.network.SearchNetwork
-import com.summersama.fisimili.utils.FApplication
+import com.summersama.fisimili.utils.FNApplication
 import com.summersama.fisimili.utils.FUtils
 
 import kotlinx.coroutines.Dispatchers
@@ -29,17 +29,17 @@ class SearchRepository private constructor(private val searchDao: SearchDao, pri
     //val s = SearchRepository.Instance.instance
     lateinit var token:String
     lateinit var access_token:String
-
+    val context = FNApplication.getContext()
    suspend fun getSearchResultOnline(sort: String, order: String, q: String) = withContext(Dispatchers.IO) {
 Log.d("url",sort+order+q)
        // q is  je and url_source is add repo
-       val url_source = FUtils().getToken(ctx = FApplication.context,key = "url_source")
+       val url_source = FUtils().getToken(ctx = context,key = "url_source")
        var x = "https://api.github.com/search/issues?q=$q+state:open+repo:$url_source&sort=$sort&order=$order"
-       token = FUtils().getToken(ctx = FApplication.context,key = "token")
+       token = FUtils().getToken(ctx = context,key = "token")
        if (token != ""){
            x="https://api.github.com/search/issues?access_token=$token&q=$q+state:open+repo:$url_source&sort=$sort&order=$order"
        }else{
-           access_token = FUtils().getToken(ctx = FApplication.context,key = "access_token")
+           access_token = FUtils().getToken(ctx = context,key = "access_token")
            if (access_token!=""){
                x="https://api.github.com/search/issues?access_token=$token&q=$q+state:open+repo:$url_source&sort=$sort&order=$order"
            }

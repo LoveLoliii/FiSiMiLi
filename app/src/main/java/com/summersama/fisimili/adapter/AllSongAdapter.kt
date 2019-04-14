@@ -2,8 +2,6 @@ package com.summersama.fisimili.adapter
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.summersama.fisimili.R
-import com.summersama.fisimili.SearchActivity
 import com.summersama.fisimili.data.IssuesInfo
-import com.summersama.fisimili.utils.FApplication
 
 class AllSongAdapter(var mPage:Int,val list:List<IssuesInfo>, val ctx: Context) :
     RecyclerView.Adapter<AllSongAdapter.SongHolder>() {

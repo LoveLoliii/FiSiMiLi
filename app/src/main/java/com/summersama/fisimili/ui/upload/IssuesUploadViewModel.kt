@@ -8,11 +8,12 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewModelScope
 import com.summersama.fisimili.data.IssuesUploadRepository
 import com.summersama.fisimili.data.UploadSongInfo
-import com.summersama.fisimili.utils.FApplication
+import com.summersama.fisimili.utils.FNApplication
 import com.summersama.fisimili.utils.FUtils
 import kotlinx.coroutines.launch
 
 class IssuesUploadViewModel(private val issuesUploadRepository: IssuesUploadRepository) : ViewModel() {
+    val context = FNApplication.getContext()
     fun uploadData(us: UploadSongInfo) {
         // 构建markdown格式文本
         val body = FUtils().getBodyMarkDownText(us)
@@ -36,7 +37,7 @@ class IssuesUploadViewModel(private val issuesUploadRepository: IssuesUploadRepo
             //isLoading.value = false
         } catch (t: Throwable) {
             t.printStackTrace()
-            Toast.makeText(FApplication.context, t.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
             //dataChanged.value = dataChanged.value?.plus(1)
             //isLoading.value = false
         }

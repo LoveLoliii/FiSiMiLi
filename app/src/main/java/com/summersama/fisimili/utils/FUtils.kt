@@ -48,7 +48,7 @@ open fun getToken(ctx:Context,key:String):String{
         stringBuilder.append("## 歌曲信息\r\n\r\n- ")
         stringBuilder.append("专辑：")
         stringBuilder.append(us.album)
-        stringBuilder.append("\r\n")
+        stringBuilder.append("\r\n- ")
         stringBuilder.append("作词：")
         stringBuilder.append(us.lyricist)
         stringBuilder.append("\r\n- ")

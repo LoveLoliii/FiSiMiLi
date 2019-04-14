@@ -9,11 +9,12 @@ import androidx.lifecycle.viewModelScope
 import com.summersama.fisimili.data.SearchRepository
 import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.data.SearchInfo
-import com.summersama.fisimili.utils.FApplication.Companion.context
+import com.summersama.fisimili.utils.FNApplication
+
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
-
+    val context = FNApplication.getContext()
     private var query = ""
     private var netState: Boolean = true
     private var searchInfo = SearchInfo()

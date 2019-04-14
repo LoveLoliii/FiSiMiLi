@@ -5,15 +5,16 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewModelScope
-import com.summersama.fisimili.utils.FApplication
+import com.summersama.fisimili.utils.FNApplication
 import com.summersama.fisimili.utils.FUtils
 import kotlinx.coroutines.launch
 
 class TokenManageViewModel : ViewModel() {
+    val context = FNApplication.getContext()
     val token =MutableLiveData<String>()
       fun getSToken(ctx: Context) {
 
-       token.value = FUtils().getToken(FApplication.context,"token")
+       token.value = FUtils().getToken(context,"token")
 
 
     }
@@ -26,7 +27,7 @@ class TokenManageViewModel : ViewModel() {
             block()
         } catch (t: Throwable) {
             t.printStackTrace()
-            Toast.makeText(FApplication.context, t.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
         }
     }
 

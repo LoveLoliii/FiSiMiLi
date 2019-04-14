@@ -1,7 +1,16 @@
 package com.summersama.fisimili.ui.search
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.ProgressDialog
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.os.Build
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -21,12 +30,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.summersama.fisimili.R
 import com.summersama.fisimili.adapter.SongListAdapter
 import com.summersama.fisimili.data.IssuesInfo
-import com.summersama.fisimili.utils.FApplication
-import com.summersama.fisimili.utils.InjectorUtil
 import kotlinx.android.synthetic.main.search_fragment.*
-import com.summersama.fisimili.utils.FishDrawable
 import android.widget.ImageView
-import com.summersama.fisimili.utils.FUtils
+import androidx.core.app.ActivityCompat
+import com.summersama.fisimili.SearchActivity
+import com.summersama.fisimili.ui.service.DownloadService
+import com.summersama.fisimili.utils.*
 import kotlinx.android.synthetic.main.back_ball_layout.*
 import me.shaohui.bottomdialog.BottomDialog
 
@@ -37,6 +46,41 @@ import me.shaohui.bottomdialog.BottomDialog
 
 class SearchFragment : Fragment(){
 
+    override fun onStart() {
+        super.onStart()
+        val filter =IntentFilter();
+        filter.addAction("updateR");
+        try {
+
+            activity?.registerReceiver(mReceiver, filter);
+        }catch (e:Exception){
+            // Log.i(TAG, "onResume: "+e);
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+         try {
+            activity?.unregisterReceiver(mReceiver);
+        }catch (e:Exception){
+            // Log.i(TAG, "onPause: "+e);
+        }
+    }
+
+
+    private val mReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            //更新进度
+            val progress = intent.getIntExtra("progress", 0)
+            //progressBar.setProgress(progress);
+            dialog?.setProgress(progress)
+            if (progress == 100) {
+                Toast.makeText(getContext(), "下载完成", Toast.LENGTH_SHORT).show()
+                //关闭进度条
+                dialog?.dismiss()
+            }
+        }
+    }
 
 
     companion object {
@@ -82,8 +126,53 @@ class SearchFragment : Fragment(){
 
     }
 
+    private var dialog: ProgressDialog? = ProgressDialog(FNApplication.getContext())
 
     private fun init() {
+        sf_fish_fdv.setFishLongClickListener {
+            // FUtils().showAlert(context!!, "")
+            Toast.makeText(context, "downloading last version app ......", Toast.LENGTH_LONG).show()
+
+            //权限判断是否有访问外部存储空间权限
+            val flag = ActivityCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (flag != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        context as Activity,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                ) {
+                    // 用户拒绝过这个权限了，应该提示用户，为什么需要这个权限。
+                    Toast.makeText(context, "permissions need", Toast.LENGTH_LONG).show()
+                } else {
+                    // 申请授权。
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        activity?.requestPermissions(
+                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                            1
+                        )
+                    }
+                }
+            } else {
+
+                val intent = Intent(context, DownloadService::class.java)
+                //携带额外数据
+                intent.putExtra("url", "https://github.com/LoveLoliii/FiSiMiLi/raw/master/app/release/app-release.apk")
+                //发送数据给service
+                FNApplication.getContext().startService(intent)
+                //创建下载进度条
+                dialog = ProgressDialog(context)
+                //设置最大值
+                dialog!!.setMax(100)
+                //设置为水平
+                dialog!!.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+                dialog!!.setTitle("下载中......")
+                //显示进度条
+                dialog!!.show()
+
+            }
+
+            true
+        }
        /* val ivFish =  iv_fish  as ImageView
         ivFish.setImageDrawable(FishDrawable(context!!))*/
         randomWaterBallAnimation()
@@ -104,7 +193,7 @@ class SearchFragment : Fragment(){
             }
             override fun onQueryTextSubmit(query: String?): Boolean {
                 // 清空recycleview
-                adapter = SongListAdapter(ArrayList(), ctx = FApplication.context)
+                adapter = SongListAdapter(ArrayList(), ctx = context!!)
                 val layoutManager = object : LinearLayoutManager(activity) {
                 }
                 layoutManager.orientation = RecyclerView.VERTICAL

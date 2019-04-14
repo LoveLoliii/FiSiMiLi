@@ -8,10 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.data.SearchRepository
 import com.summersama.fisimili.data.SongDetailRepository
-import com.summersama.fisimili.utils.FApplication
+import com.summersama.fisimili.utils.FNApplication
 import kotlinx.coroutines.launch
 
 class SongDetailViewModel(private val repository: SongDetailRepository)  : ViewModel() {
+    val context = FNApplication.getContext()
     var path  = MutableLiveData<String>()
     suspend fun getPath(key: String) {
 
@@ -29,7 +30,7 @@ class SongDetailViewModel(private val repository: SongDetailRepository)  : ViewM
             block()
         } catch (t: Throwable) {
             t.printStackTrace()
-            Toast.makeText(FApplication.context, t.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
         }
     }
     private fun launchX(block: suspend () -> IssuesInfo) = viewModelScope.launch {
@@ -37,7 +38,7 @@ class SongDetailViewModel(private val repository: SongDetailRepository)  : ViewM
             block()
         } catch (t: Throwable) {
             t.printStackTrace()
-            Toast.makeText(FApplication.context, t.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
         }
     }
     suspend fun getIssues(url: String) :IssuesInfo   {
