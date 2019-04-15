@@ -51,10 +51,10 @@ class IssuesUploadFragment : Fragment() {
             us.composer = iuf_composer_et.text.toString()
             us.arrangement = iuf_arrangement_et.text.toString()
             us.singer = iuf_singer_et.text.toString()
-            us.nmn = iuf_nmn_et.text.toString()
+            // us.nmn = iuf_nmn_et.text.toString()
             us.wn = iuf_wn_et.text.toString()
             Log.i("us",us.toString())
-            viewModel.uploadData(us)
+            // viewModel.uploadData(us)
 
         }
 

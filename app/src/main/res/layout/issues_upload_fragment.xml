@@ -161,8 +161,14 @@
                             android:layout_height="wrap_content" android:layout_width="match_parent">
                         <Button
                                 android:id="@+id/iuf_submit_btn"
-                                android:layout_width="wrap_content" android:text="@string/submit"/>
+                                android:layout_width="wrap_content" android:text="@string/next"/>
                     </TableRow>
+                    <com.summersama.fisimili.ui.numput.Numput
+                            android:id="@+id/iuf_nmn_np"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:codes="10"
+                    />
                 </LinearLayout>
             </ScrollView>
 
