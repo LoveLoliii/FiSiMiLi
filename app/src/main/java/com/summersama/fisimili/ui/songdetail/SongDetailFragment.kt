@@ -157,13 +157,14 @@ class SongDetailFragment : Fragment(), CoroutineScope {
             val num = body.split("## 谱")
             var numHtml = num[1].substringAfter("```").substringBeforeLast("```")
             val wn = num[1].substringAfterLast("```")
-            markwon.setMarkdown(asd_body_tx, num[0])
+            markwon.setMarkdown(asd_body_tx, body)
           //  numHtml = numHtml.replace("\r\n\r\n","<p>")
             numHtml = numHtml.replace("\r\n","<br>")
             numHtml =  FUtils().setColor(numHtml) //
 
             asd_body_ht.setHtml("<code>$numHtml</code>")
             //
+            asd_body_ht.visibility = View.GONE
             getMusicDownLoadPath(iss)
         }
 
