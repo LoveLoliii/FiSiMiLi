@@ -22,8 +22,13 @@ class IssuesUploadViewModel(private val issuesUploadRepository: IssuesUploadRepo
         map["body"] = body
         launch  {
             Log.i("body",body)
-            val rs = issuesUploadRepository.uploadIssues(map)
-            upstate.value = rs != null
+            if (us.sn == "未知" || us.nmn =="未知" || us.nmn=="" || us.sn==""){
+                upstate.value = false
+            }else{
+                val rs = issuesUploadRepository.uploadIssues(map)
+                upstate.value = rs != null
+            }
+
         }
     }
 

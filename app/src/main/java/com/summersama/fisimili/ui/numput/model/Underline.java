@@ -1,9 +1,12 @@
 package com.summersama.fisimili.ui.numput.model;
 
+import android.view.View;
+import android.widget.EditText;
+
 /**
  * @author Adrián García Lomas
  */
-public class Underline {
+public class Underline  {
 
     float fromX;
     float fromY;

@@ -63,13 +63,28 @@
                         android:layout_width="0dp" android:layout_height="wrap_content"
                         android:text="@string/song_total_time"/>
             </LinearLayout>
-            <TextView
+            <ScrollView
+                    android:layout_below="@id/asd_play_ll"
+                    android:layout_width="match_parent" android:layout_height="wrap_content">
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                    <TextView
 
-                    android:text="detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/asd_body_tx"
-                    android:layout_below="@+id/asd_play_ll"/>
+                            android:text="detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/asd_body_tx"
+                            />
+                    <org.sufficientlysecure.htmltextview.HtmlTextView
+
+                            android:layout_below="@id/asd_body_tx"
+                            android:id="@+id/asd_body_ht"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+            </ScrollView>
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

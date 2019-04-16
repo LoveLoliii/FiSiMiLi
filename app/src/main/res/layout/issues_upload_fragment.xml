@@ -23,13 +23,15 @@
         >
             <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
                 <LinearLayout
-
+                        android:id="@+id/iuf_other_ll"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:layout_width="match_parent" android:layout_height="match_parent">
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                >
                     <TableRow
 
-                            android:layout_height="wrap_content" android:layout_width="match_parent">
+                            android:layout_height="wrap_content" android:layout_width="match_parent"
+                    >
                         <TextView
                                 android:gravity="center"
                                 android:text="@string/song_name"
@@ -136,43 +138,57 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent" android:text="@string/unknown"/>
                     </TableRow>
-                    <TableRow
 
-                            android:layout_height="wrap_content" android:layout_width="match_parent">
-                        <TextView
-                                android:gravity="center"
-                                android:text="@string/nmn"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                        />
-                        <EditText
-
-                                android:layout_weight="3"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:inputType="textMultiLine"
-                                android:ems="10"
-                                android:id="@+id/iuf_nmn_et"/>
-
-                    </TableRow>
                     <TableRow
                             android:gravity="center"
                             android:layout_height="wrap_content" android:layout_width="match_parent">
                         <Button
-                                android:id="@+id/iuf_submit_btn"
+                                android:id="@+id/iuf_next_btn"
                                 android:layout_width="wrap_content" android:text="@string/next"/>
                     </TableRow>
-                    <com.summersama.fisimili.ui.numput.Numput
+                    <!--  <com.summersama.fisimili.ui.numput.Numput
                             android:id="@+id/iuf_nmn_np"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:codes="10"
-                    />
+                    />-->
                 </LinearLayout>
+
             </ScrollView>
 
+            <LinearLayout
+                    android:id="@+id/iuf_num_ll"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone">
+                <TableRow
 
+                        android:layout_height="wrap_content" android:layout_width="match_parent">
+                    <TextView
+                            android:gravity="center"
+                            android:text="@string/nmn"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                    />
+                    <EditText
+
+                            android:layout_weight="3"
+                            android:layout_width="0dp"
+                            android:layout_height="400dp"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/iuf_nmn_et"/>
+
+                </TableRow>
+                <TableRow
+                        android:gravity="center"
+                        android:layout_height="wrap_content" android:layout_width="match_parent">
+                    <Button
+                            android:id="@+id/iuf_submit_btn"
+                            android:layout_width="wrap_content" android:text="@string/submit"/>
+                </TableRow>
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

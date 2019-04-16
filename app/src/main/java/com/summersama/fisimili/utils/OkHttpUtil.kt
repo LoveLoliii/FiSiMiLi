@@ -108,7 +108,7 @@ class OkHttpUtil(client: OkHttpClient?) {
             val g = Gson()
             val queryStr = g.toJson(map)
             val requestBody = RequestBody.create(Json, queryStr)
-            Log.e("onClick: ", queryStr)
+           //Log.e("onClick: ", queryStr)
             val request = Request.Builder()
                 .url(url)
                 .post(requestBody)

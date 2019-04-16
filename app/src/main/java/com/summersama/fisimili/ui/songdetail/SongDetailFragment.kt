@@ -31,6 +31,7 @@ import kotlin.coroutines.CoroutineContext
 import android.os.Handler
 import android.os.Message
 import android.widget.Button
+import com.summersama.fisimili.utils.FUtils
 import kotlinx.android.synthetic.main.back_ball_layout.*
 import kotlinx.android.synthetic.main.song_detail_fragment.*
 import java.lang.Exception
@@ -151,7 +152,17 @@ class SongDetailFragment : Fragment(), CoroutineScope {
             asd_upload_tx.text = iss.user.login
             val markwon = Markwon.builder(context!!)
                 .usePlugin(ImagesPlugin.create(context!!)).build()
-            markwon.setMarkdown(asd_body_tx, iss.body)
+            // split body
+            val body = iss.body
+            val num = body.split("## 谱")
+            var numHtml = num[1].substringAfter("```").substringBeforeLast("```")
+            val wn = num[1].substringAfterLast("```")
+            markwon.setMarkdown(asd_body_tx, num[0])
+          //  numHtml = numHtml.replace("\r\n\r\n","<p>")
+            numHtml = numHtml.replace("\r\n","<br>")
+            numHtml =  FUtils().setColor(numHtml) //
+
+            asd_body_ht.setHtml("<code>$numHtml</code>")
             //
             getMusicDownLoadPath(iss)
         }

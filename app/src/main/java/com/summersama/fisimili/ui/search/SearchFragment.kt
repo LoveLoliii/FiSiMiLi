@@ -38,10 +38,10 @@ import com.summersama.fisimili.ui.service.DownloadService
 import com.summersama.fisimili.utils.*
 import kotlinx.android.synthetic.main.back_ball_layout.*
 import me.shaohui.bottomdialog.BottomDialog
-
-
-
-
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import java.io.IOException
 
 
 class SearchFragment : Fragment(){
@@ -103,6 +103,27 @@ class SearchFragment : Fragment(){
         viewModel = ViewModelProviders.of(this.activity!!, InjectorUtil.getSearchModelFactory()).get(SearchViewModel::class.java)
         init()
         observe()
+        // get some online data
+        var map = HashMap<String,String>()
+        val color = FUtils().getJCN()
+        for (c in color){
+            Thread.sleep(100)
+            map["color"] = c
+            OkHttpUtil.post(map,"http://nipponcolors.com/php/io.php").enqueue(object :Callback{
+                override fun onFailure(call: Call, e: IOException) {
+                   print(e)
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    Log.e("color",response.body()?.string())
+                }
+
+            })
+        }
+
+
+
+
     }
 
     private fun observe() {

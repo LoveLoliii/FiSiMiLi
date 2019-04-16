@@ -101,6 +101,8 @@ dependencies {
     implementation 'com.lovejjfg.powerrecycle:powerrecycle:+'
     //
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
+    // html textview
+    implementation 'org.sufficientlysecure:html-textview:3.6'
     //jwt
     // implementation 'com.auth0.android:jwtdecode:1.2.0'
     implementation 'com.auth0:java-jwt:3.8.0'

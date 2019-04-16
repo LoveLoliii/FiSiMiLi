@@ -1,5 +1,6 @@
 package com.summersama.fisimili.ui.upload
 
+import android.opengl.Visibility
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -43,8 +44,11 @@ class IssuesUploadFragment : Fragment() {
 
         val us = UploadSongInfo()
 
-
         iuf_submit_btn.setOnClickListener {
+            us.nmn = iuf_nmn_et.text.toString()
+            viewModel.uploadData(us)
+        }
+        iuf_next_btn.setOnClickListener {
             us.sn = iuf_name_et.text.toString()
             us.album = iuf_album_et.text.toString()
             us.lyricist = iuf_lyricist_et.text.toString()
@@ -54,13 +58,19 @@ class IssuesUploadFragment : Fragment() {
             // us.nmn = iuf_nmn_et.text.toString()
             us.wn = iuf_wn_et.text.toString()
             Log.i("us",us.toString())
+            iuf_other_ll.visibility = View.GONE
+            iuf_num_ll.visibility = View.VISIBLE
             // viewModel.uploadData(us)
 
         }
 
         viewModel.upstate.observe(this, Observer {
+            iuf_other_ll.visibility = View.VISIBLE
+            iuf_num_ll.visibility = View.GONE
             if (it){
                 Toast.makeText(context,"upload success",Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(context,"upload failed",Toast.LENGTH_SHORT).show()
             }
         })
     }
