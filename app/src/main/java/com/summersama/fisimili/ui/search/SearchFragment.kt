@@ -235,7 +235,7 @@ class SearchFragment : Fragment(){
                     }
                     .setLayoutRes(R.layout.dialog_select_layout)
                     .setDimAmount(0.1f)            // Dialog window dim amount(can change window background color）, range：0 to 1，default is : 0.2f
-                    .setCancelOutside(false)     // click the external area whether is closed, default is : true
+                    .setCancelOutside(true)     // click the external area whether is closed, default is : true
                     .setTag("BottomDialog")     // setting the DialogFragment tag
                     .show()
 

@@ -13,18 +13,18 @@ class AllSongRepository private constructor(private val allSongDao: AllSongDao, 
     lateinit var access_token :String
     val context = FNApplication.getContext()
     suspend   fun getAllSongInfo(page:Int,pageSize: Int):  List<IssuesInfo>? = withContext(Dispatchers.IO) {
-        val url_source = FUtils().getToken(context,"url_source")
-                var url = "https://api.github.com/repos/$url_source/issues?page=$page&per_page=$pageSize"
+        val urlSource = FUtils().getToken(context,"url_source")
+                var url = "https://api.github.com/repos/$urlSource/issues?page=$page&per_page=$pageSize"
                token = FUtils().getToken(ctx = context,key = "token")
 
                 if (  token != ""){
                     // 检查access_token
 
-                    url="https://api.github.com/repos/$url_source/issues?access_token=$token&page=$page&per_page=$pageSize"
+                    url="https://api.github.com/repos/$urlSource/issues?access_token=$token&page=$page&per_page=$pageSize"
                 }else{
                     access_token=FUtils().getToken(ctx = context,key = "access_token")
                     if (access_token != ""){
-                        url="https://api.github.com/repos/$url_source/issues?access_token=$token&page=$page&per_page=$pageSize"
+                        url="https://api.github.com/repos/$urlSource/issues?access_token=$token&page=$page&per_page=$pageSize"
 
                     }
                 }

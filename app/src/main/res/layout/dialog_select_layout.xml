@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <TextView android:id="@+id/dsl_je_tx" android:layout_width="0dp" android:layout_weight="1"
+              android:layout_height="wrap_content">
+    <TextView android:id="@+id/dsl_je_tx"  android:textSize="24sp" android:layout_width="0dp" android:layout_weight="1"
               android:layout_height="wrap_content" android:text="JE" android:gravity="center"/>
-    <TextView android:id="@+id/dsl_ll_tx" android:layout_width="0dp" android:layout_weight="1"
+    <TextView android:id="@+id/dsl_ll_tx" android:textSize="24sp" android:layout_width="0dp" android:layout_weight="1"
               android:layout_height="wrap_content" android:text="LL" android:gravity="center"/>
 </LinearLayout>
