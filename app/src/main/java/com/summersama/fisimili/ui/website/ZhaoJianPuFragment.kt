@@ -3,6 +3,7 @@ package com.summersama.fisimili.ui.website
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.webkit.WebViewClient
 
 import com.summersama.fisimili.R
 import com.summersama.fisimili.utils.ConstantUtils
+import kotlinx.android.synthetic.main.qin_yi_pu_fragment.*
 import kotlinx.android.synthetic.main.zhao_jian_pu_fragment.*
 
 class ZhaoJianPuFragment : Fragment() {
@@ -35,14 +37,29 @@ class ZhaoJianPuFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ZhaoJianPuViewModel::class.java)
         initWebView()
         val url = ConstantUtils.ZHAOJIANPU_URL
+        zjp_main_wv.webViewClient = WebViewClient()
         zjp_main_wv.loadUrl(url)
-        zjp_main_wv.webViewClient = object : WebViewClient() {
+        /*zjp_main_wv.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
                 Log.d("跳转的url",url)
                 return true
             }
-        }
+        }*/
+        zjp_main_wv.setOnKeyListener(object :View.OnKeyListener {
+            override fun onKey(view:View, keyCode:Int, keyEvent: KeyEvent) :Boolean{
+                if (keyEvent.action == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK ) {
+                        //这里处理返回键事件
+                        if (zjp_main_wv.canGoBack()){
+                            zjp_main_wv.goBack();
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
     }
     val newUA= "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16A366 MicroMessenger/6.7.3(0x16070321) NetType/WIFI Language/zh_CN";
     private fun initWebView() {
