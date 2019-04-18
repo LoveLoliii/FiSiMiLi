@@ -22,6 +22,21 @@
                 android:title="上传乐谱"
               android:icon="@drawable/cloud_upload"
         />
+    </group>
+    <group>
+        <item android:id="@+id/action_searchFragment_to_qinyipu"
+              android:title="琴艺谱"
+              android:icon="@drawable/web"
+        />
+        <item android:id="@+id/action_searchFragment_to_zhaojianpu"
+              android:title="找简谱网"
+              android:icon="@drawable/web"
+        />
 
     </group>
+    <item android:id="@+id/action_searchFragment_to_about"
+          android:title="关于"
+          android:icon="@drawable/about"
+    />
+
 </menu>

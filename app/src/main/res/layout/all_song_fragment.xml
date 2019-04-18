@@ -6,17 +6,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.all.AllSongFragment" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include layout="@layout/back_ball_layout"/>
+    <include layout="@layout/back_ball_layout" android:id="@+id/include"/>
 
 
     <com.github.ybq.android.spinkit.SpinKitView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/spin_kit"
             style="@style/SpinKitView.Small.FadingCircle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            app:SpinKit_Color="@color/light_grey" />
+            app:SpinKit_Color="@color/竹绿" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/include" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/asf_recycle_view"
+            app:layout_constraintEnd_toEndOf="@+id/include" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/include"/>
     <androidx.recyclerview.widget.RecyclerView
             app:layout_constraintTop_toBottomOf="parent"
             android:id="@+id/asf_recycle_view"

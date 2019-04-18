@@ -3,6 +3,7 @@ package com.summersama.fisimili
 import android.app.Activity
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.PointF
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import android.system.Os
 import android.view.View
 import android.view.WindowManager
 import com.summersama.fisimili.utils.TranslucentStatusUtil
+import kotlinx.android.synthetic.main.nav_header_layout.*
 import kotlinx.android.synthetic.main.top_bar_layout.*
 
 
@@ -30,14 +32,6 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_activity)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val decorView = window.decorView
-            //让应用主题内容占用系统状态栏的空间,注意:下面两个参数必须一起使用 stable 牢固的
-            val option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            decorView.systemUiVisibility = option
-            //设置状态栏颜色为透明
-            window.statusBarColor = Color.TRANSPARENT
-        }*/
         val topBar = ll_title_bar
         TranslucentStatusUtil.initState(this,topBar )
         //沉浸式状态栏适配
@@ -47,11 +41,7 @@ class SearchActivity : AppCompatActivity() {
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.sf) as NavHostFragment? ?: return
        navController = host.navController
-
-
         setupNavigationMenu(navController)
-
-     //   setupBottomNavMenu(navController)
         navController.navigate(R.id.searchFragment)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val dest: String = try {
@@ -59,11 +49,11 @@ class SearchActivity : AppCompatActivity() {
             } catch (e: Resources.NotFoundException) {
                 Integer.toString(destination.id)
             }
-           /* Toast.makeText(this@SearchActivity, "Navigated to $dest",
-                Toast.LENGTH_SHORT).show()*/
             Log.d("NavigationActivity", "Navigated to $dest")
         }
 
+        // make nav view fish auto action
+        //nhl_fish_fv.setRandomPoint(PointF(1f,1f))
     }
 
 

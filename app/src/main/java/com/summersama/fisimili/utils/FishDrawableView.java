@@ -64,7 +64,9 @@ public class FishDrawableView extends RelativeLayout {
     public void setFishLongClickListener(OnLongClickListener listener){
         ivFish.setOnLongClickListener(listener);
     }
-
+    public void setRandomPoint(PointF point){
+        makeTrail(point);
+    }
     public FishDrawableView(Context context) {
         this(context, null);
     }

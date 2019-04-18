@@ -8,6 +8,9 @@
               android:label="search_fragment" tools:layout="@layout/search_fragment">
         <action android:id="@+id/action_searchFragment_to_songDetailFragment"
                 app:destination="@id/songDetailFragment"/>
+        <action android:id="@+id/action_searchFragment_to_qinyipu" app:destination="@id/qinyipu"/>
+        <action android:id="@+id/action_searchFragment_to_zhaojianpu" app:destination="@id/zhaojianpu"/>
+        <action android:id="@+id/action_searchFragment_to_about" app:destination="@id/about"/>
     </fragment>
     <fragment android:id="@+id/songDetailFragment"
               android:name="com.summersama.fisimili.ui.songdetail.SongDetailFragment"
@@ -38,6 +41,21 @@
               android:label="github oauth login"
               tools:layout=""
     >
+
+    </fragment>
+    <fragment android:id="@+id/qinyipu"
+              android:name="com.summersama.fisimili.ui.website.QinYiPuFragment"
+              android:label="website">
+
+    </fragment>
+    <fragment android:id="@+id/zhaojianpu"
+              android:name="com.summersama.fisimili.ui.website.ZhaoJianPuFragment"
+              android:label="website">
+
+    </fragment>
+    <fragment android:id="@+id/about"
+              android:name="com.summersama.fisimili.ui.about.AboutFragment"
+              android:label="website">
 
     </fragment>
 </navigation>

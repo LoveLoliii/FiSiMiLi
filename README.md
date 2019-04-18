@@ -6,12 +6,13 @@
 + add upload jianpu function simply and could search from two repos and see one's all jianpu
 + repair some bugs (4/14)
 + allow update app by long click the fish
++ 使用了WebView在应用内访问琴艺谱和找简谱网,更新导航侧栏UI(4/18)
 + [0.0.3版下载](https://github.com/LoveLoliii/FiSiMiLi/raw/master/app/release/app-release.apk)
 <p align="center">
-    <img src="https://github.com/LoveLoliii/FiSiMiLi/blob/master/pic/Screenshot_1554792869.png" width="300" height="500">
+    <img src="https://github.com/LoveLoliii/FiSiMiLi/blob/master/pic/Screenshot_1555559896.png" width="300" height="500">
 </p>
 <p align="center">
-    <img src="https://github.com/LoveLoliii/FiSiMiLi/blob/master/pic/Screenshot_1554792883.png"  width="300" height="500">
+    <img src="https://github.com/LoveLoliii/FiSiMiLi/blob/master/pic/Screenshot_1555559988.png"  width="300" height="500">
 </p>
 
 # LICENSE

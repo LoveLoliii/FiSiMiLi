@@ -10,6 +10,7 @@
         tools:context=".SearchActivity">
 
 
+
     <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
         <!--<androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -26,15 +27,21 @@
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/nav_graph"
         />
+
     </LinearLayout>
+
     <com.google.android.material.navigation.NavigationView
+            android:background="@color/粉白"
+            app:headerLayout="@layout/nav_header_layout"
+            app:insetForeground="@android:color/transparent"
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:itemTextColor="@color/colorPrimary"
-            app:itemIconTint="@color/colorPrimary"
+            android:fitsSystemWindows="false"
+            app:itemTextColor="@color/金鱼紫"
+            app:itemIconTint="@color/竹绿"
             app:menu="@menu/nav_drawer_menu"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>
 
