@@ -21,6 +21,8 @@ import com.summersama.fisimili.utils.TranslucentStatusUtil
 import kotlinx.android.synthetic.main.top_bar_layout.*
 
 
+
+
 class IntroActivity : AppIntro() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,19 +34,21 @@ class IntroActivity : AppIntro() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         // 底部导航栏 背景透明
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);*/
+
         val sliderPage = SliderPage()
         sliderPage.title = "搜索"
         sliderPage.description = "搜索简谱使用了自由神社曲谱库2.0\n和一个自建的曲库。\n搜索默认不包含自建库，需要在搜索框左侧选择，\n同时这也是查看所有简谱的切换处。"
         sliderPage.imageDrawable = R.drawable.flogo
         sliderPage.bgColor = Color.parseColor("#1ba784")
-        sliderPage.titleColor=Color.parseColor("#eea2a4")
-        sliderPage.descColor=Color.parseColor("#ed556a")
+        sliderPage.titleColor=Color.parseColor("#fbf2e3")
+        sliderPage.descColor=Color.parseColor("#fbf2e3")
         //sliderPage.bgColor = R.color.龙葵紫
         addSlide(AppIntroFragment.newInstance(sliderPage))
-        addSlide(AppIntroFragment.newInstance(SliderPage("上传","会上传到自建库：\nhttps://github.com/LoveLoliii/ScoreS\n",R.drawable.flogo, Color.parseColor("#1ba784"),Color.parseColor("#eea2a4"),Color.parseColor("#ed556a"))))
-        addSlide(AppIntroFragment.newInstance(SliderPage("github token","用于提高Api请求限制（非必须）\n可在github个人设置中创建一个无权限的token\n再到左侧进入github token页面保存",R.drawable.flogo, Color.parseColor("#1ba784"),Color.parseColor("#eea2a4"),Color.parseColor("#ed556a"))))
-        addSlide(AppIntroFragment.newInstance(SliderPage("成为偶像","只有想要成为艾欧泽亚偶像\n的种族才能使用！\n拉拉肥需要先下锅清洗干净！\n以上！\nover！",R.drawable.flogo, Color.parseColor("#1ba784"),Color.parseColor("#eea2a4"),Color.parseColor("#ed556a"))))
+        addSlide(AppIntroFragment.newInstance(SliderPage("上传","会上传到自建库：\nhttps://github.com/LoveLoliii/ScoreS\n",R.drawable.flogo, Color.parseColor("#1ba784"),Color.parseColor("#fbf2e3"),Color.parseColor("#fbf2e3"))))
+        addSlide(AppIntroFragment.newInstance(SliderPage("github token","用于提高Api请求限制（非必须）\n可在github个人设置中创建一个无权限的token\n再到左侧进入github token页面保存",R.drawable.flogo, Color.parseColor("#1ba784"),Color.parseColor("#fbf2e3"),Color.parseColor("#fbf2e3"))))
+        addSlide(AppIntroFragment.newInstance(SliderPage("成为偶像","只有想要成为艾欧泽亚偶像\n的种族才能使用！\n拉拉肥需要先下锅清洗干净！\n以上！\nover！",R.drawable.flogo, Color.parseColor("#1ba784"),Color.parseColor("#fbf2e3"),Color.parseColor("#fbf2e3"))))
         showSkipButton(false)
+
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
