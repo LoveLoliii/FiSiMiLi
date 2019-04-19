@@ -42,7 +42,7 @@ class SearchActivity : AppCompatActivity() {
             .findFragmentById(R.id.sf) as NavHostFragment? ?: return
        navController = host.navController
         setupNavigationMenu(navController)
-        navController.navigate(R.id.searchFragment)
+      //  navController.navigate(R.id.searchFragment)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val dest: String = try {
                 resources.getResourceName(destination.id)
@@ -62,5 +62,9 @@ class SearchActivity : AppCompatActivity() {
       val sideNavView = findViewById<NavigationView>(R.id.nav_view)
         sideNavView?.setupWithNavController(navController)
 
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }

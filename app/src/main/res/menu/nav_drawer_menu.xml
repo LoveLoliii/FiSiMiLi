@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/primary">
-        <item android:id="@+id/github_login"
+        <!--<item android:id="@+id/github_login"
                 android:title="登陆"
-               android:icon="@drawable/login" />
+               android:icon="@drawable/login" />-->
         <item
 
                 android:id="@id/searchFragment"
@@ -24,17 +24,17 @@
         />
     </group>
     <group>
-        <item android:id="@+id/action_searchFragment_to_qinyipu"
+        <item android:id="@+id/qinyipu"
               android:title="琴艺谱"
               android:icon="@drawable/web"
         />
-        <item android:id="@+id/action_searchFragment_to_zhaojianpu"
+        <item android:id="@+id/zhaojianpu"
               android:title="找简谱网"
               android:icon="@drawable/web"
         />
 
     </group>
-    <item android:id="@+id/action_searchFragment_to_about"
+    <item android:id="@+id/about"
           android:title="关于"
           android:icon="@drawable/about"
     />

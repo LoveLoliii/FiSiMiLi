@@ -48,7 +48,7 @@ class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
             var url = "sort=created&order=desc&q=$query+state:open+repo:zytx121/je"
             val sort = "created"
             val order = "desc"
-            val q = "$query+state:open+repo:zytx121/je"
+            val q = query
             //url = URLEncoder.encode(url,"utf-8")
             issues.value=(repository.getSearchResultOnline(sort,order,q))
         }

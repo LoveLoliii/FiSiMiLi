@@ -4,7 +4,7 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
             app:startDestination="@id/searchFragment"
 >
-    <fragment android:id="@+id/searchFragment" android:name="com.summersama.fisimili.ui.search.SearchFragment"
+    <fragment android:id="@+id/searchFragment"   android:name="com.summersama.fisimili.ui.search.SearchFragment"
               android:label="search_fragment" tools:layout="@layout/search_fragment">
         <action android:id="@+id/action_searchFragment_to_songDetailFragment"
                 app:destination="@id/songDetailFragment"/>

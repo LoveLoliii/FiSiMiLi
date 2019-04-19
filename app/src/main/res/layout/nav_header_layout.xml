@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:background="@color/牡丹粉红"
               android:layout_width="match_parent"
-              android:layout_height="100dp">
+              android:layout_height="200dp">
 <com.summersama.fisimili.utils.FishDrawableView
         android:id="@+id/nhl_fish_fv"
         android:layout_width="match_parent"

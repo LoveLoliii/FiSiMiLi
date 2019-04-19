@@ -31,7 +31,7 @@ open class FUtils {
 
 open fun getToken(ctx:Context,key:String):String{
     // 默认使用JE的仓库
-        return ctx.getSharedPreferences(key, MODE_PRIVATE).getString(key, "zytx121/je")!!
+        return ctx.getSharedPreferences(key, MODE_PRIVATE).getString(key, "")!!
     }
 
     fun saveToken(context: Context, key: String, value: String) {

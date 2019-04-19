@@ -14,7 +14,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "0.0.3"
+        versionName "0.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     /* buildTypes {
@@ -28,7 +28,8 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('/home/loveloliii/Documents/dev/fsml-ubuntu.jks')
+            //storeFile file('/home/loveloliii/Documents/dev/fsml-ubuntu.jks')
+            storeFile file('D:\\AndroidProjects\\key\\fsml.jks')
             storePassword 'loveloliii'
             keyAlias 'key0'
             keyPassword 'loveloliii'

@@ -13,7 +13,10 @@ class AllSongRepository private constructor(private val allSongDao: AllSongDao, 
     lateinit var access_token :String
     val context = FNApplication.getContext()
     suspend   fun getAllSongInfo(page:Int,pageSize: Int):  List<IssuesInfo>? = withContext(Dispatchers.IO) {
-        val urlSource = FUtils().getToken(context,"url_source")
+        var urlSource = FUtils().getToken(context,"url_source")
+        if(urlSource ==""){
+            urlSource ="zytx121/je"
+        }
                 var url = "https://api.github.com/repos/$urlSource/issues?page=$page&per_page=$pageSize"
                token = FUtils().getToken(ctx = context,key = "token")
 
