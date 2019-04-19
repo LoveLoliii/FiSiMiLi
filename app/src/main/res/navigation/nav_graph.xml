@@ -17,7 +17,7 @@
               android:label="song_detail_fragment" tools:layout="@layout/song_detail_fragment"/>
     <fragment
             android:id="@+id/all_dest"
-            android:name="com.summersama.fisimili.ui.all.AllSongFragment"
+            android:name="com.summersama.fisimili.ui.searchall.AllSongFragment"
             android:label="all song"
             tools:layout="@layout/all_song_fragment">
     </fragment>

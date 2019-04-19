@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.all.AllSongFragment" xmlns:app="http://schemas.android.com/apk/res-auto">
+        tools:context=".ui.searchall.AllSongFragment" xmlns:app="http://schemas.android.com/apk/res-auto">
     <include layout="@layout/back_ball_layout" android:id="@+id/include"/>
 
 

@@ -9,7 +9,7 @@ import com.summersama.fisimili.data.network.AllSongNetwork
 import com.summersama.fisimili.data.network.IssuesUploadNetwork
 import com.summersama.fisimili.data.network.SearchNetwork
 import com.summersama.fisimili.data.network.SongDetailNetwork
-import com.summersama.fisimili.ui.all.AllSongModelFactory
+import com.summersama.fisimili.ui.searchall.AllSongModelFactory
 import com.summersama.fisimili.ui.search.SearchModelFactory
 import com.summersama.fisimili.ui.songdetail.SongDetailFactory
 import com.summersama.fisimili.ui.upload.IssuesUploadModelFactory
