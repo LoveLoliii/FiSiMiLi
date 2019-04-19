@@ -34,6 +34,14 @@
                         android:layout_width="wrap_content" android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="@string/issuesUL"/>
+                <ImageButton
+                        android:id="@+id/sdf_collection_ib"
+                        android:layout_gravity="center"
+                        android:src="@drawable/collection"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerInside"
+                        android:layout_height="24dp" android:layout_width="24dp" android:layout_margin="8dp"
+                        android:layout_alignBottom="@+id/asd_top_ll" android:layout_alignEnd="@+id/asd_top_ll"/>
             </LinearLayout>
             <LinearLayout
                     android:gravity="center"

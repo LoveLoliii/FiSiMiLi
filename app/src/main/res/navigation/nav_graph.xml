@@ -58,4 +58,9 @@
               android:label="website">
 
     </fragment>
+    <fragment android:id="@+id/collection"
+              android:name="com.summersama.fisimili.ui.collection.CollectionFragment"
+              android:label="@string/collection">
+
+    </fragment>
 </navigation>

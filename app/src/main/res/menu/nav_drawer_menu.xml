@@ -8,34 +8,39 @@
 
                 android:id="@id/searchFragment"
                 android:icon="@drawable/search"
-                android:title="搜索" />
+                android:title="@string/search" />
+        <item
+                android:id="@+id/collection"
+                android:icon="@drawable/collection"
+                android:title="@string/collection"
+        />
         <item
                 android:id="@id/all_dest"
                 android:icon="@drawable/book"
-                android:title="查看全部" />
+                android:title="@string/call" />
         <item
                 android:icon="@drawable/key"
-                android:title="github Token"
+                android:title="@string/github_token"
             android:id="@+id/add_token"
         />
         <item android:id="@+id/upload_issues"
-                android:title="上传乐谱"
+                android:title="@string/upnumu"
               android:icon="@drawable/cloud_upload"
         />
     </group>
     <group>
         <item android:id="@+id/qinyipu"
-              android:title="琴艺谱"
+              android:title="@string/qypweb"
               android:icon="@drawable/web"
         />
         <item android:id="@+id/zhaojianpu"
-              android:title="找简谱网"
+              android:title="@string/zjpweb"
               android:icon="@drawable/web"
         />
 
     </group>
     <item android:id="@+id/about"
-          android:title="关于"
+          android:title="@string/about"
           android:icon="@drawable/about"
     />
 

@@ -1,6 +1,9 @@
 package com.summersama.fisimili.ui.songdetail
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.media.MediaPlayer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -31,6 +34,7 @@ import kotlin.coroutines.CoroutineContext
 import android.os.Handler
 import android.os.Message
 import android.widget.Button
+import com.summersama.fisimili.utils.FNApplication
 import com.summersama.fisimili.utils.FUtils
 import kotlinx.android.synthetic.main.back_ball_layout.*
 import kotlinx.android.synthetic.main.song_detail_fragment.*
@@ -138,13 +142,14 @@ class SongDetailFragment : Fragment(), CoroutineScope {
             }
         }
     }
-
+    private lateinit var   isUrl:String
     private fun initData() {
-        //   val searchVM = activity?.run { ViewModelProviders.of(this).get(SearchViewModel::class.java) }
-        val bundle = arguments
-        val isUrl = bundle!!.getString("url")
-        var iss = IssuesInfo()
 
+
+        val bundle = arguments
+        isUrl = bundle!!.getString("url")!!
+        initCollectionState()
+        var iss = IssuesInfo()
         launch {
             iss = viewModel.getIssues(isUrl)// searchVM!!.issues.value!![position]
             Glide.with(context!!).load(iss.user.avatar_url).into(asd_uppic_iv)
@@ -158,18 +163,15 @@ class SongDetailFragment : Fragment(), CoroutineScope {
             var numHtml = num[1].substringAfter("```").substringBeforeLast("```")
             val wn = num[1].substringAfterLast("```")
             markwon.setMarkdown(asd_body_tx, body)
-          //  numHtml = numHtml.replace("\r\n\r\n","<p>")
-            numHtml = numHtml.replace("\r\n","<br>")
-            numHtml =  FUtils().setColor(numHtml) //
+            //  numHtml = numHtml.replace("\r\n\r\n","<p>")
+            numHtml = numHtml.replace("\r\n", "<br>")
+            numHtml = FUtils().setColor(numHtml) //
 
             asd_body_ht.setHtml("<code>$numHtml</code>")
             //
             asd_body_ht.visibility = View.GONE
             getMusicDownLoadPath(iss)
         }
-
-
-
         asd_play_btn.setOnClickListener {
             if (!mediaPlayer.isPlaying) {
                 if (!notice) {
@@ -263,7 +265,47 @@ class SongDetailFragment : Fragment(), CoroutineScope {
             }
 
         }
+        sdf_collection_ib.setOnClickListener {
+            switchColor()
+            switchState()
+        }
+    }
 
+    private fun initCollectionState() {
+        // default black and false
+        var c = FUtils().getToken(FNApplication.getContext(),"collection")
+        if (c.contains("*$isUrl")){
+
+            switchColor()
+        }
+
+    }
+
+    private fun switchState() {
+        if (collectionBtnState) {
+            // add
+            Log.e("xxx",isUrl)
+            var c = FUtils().getToken(FNApplication.getContext(),"collection")
+            c+= "*$isUrl"
+            FUtils().saveToken(FNApplication.getContext(),"collection",c)
+        } else {
+            // cancel
+            var c = FUtils().getToken(FNApplication.getContext(),"collection")
+            c = c.replace("*$isUrl","")
+            FUtils().saveToken(FNApplication.getContext(),"collection",c)
+        }
+
+    }
+
+    var collectionBtnState = false
+    private fun switchColor() {
+        if (collectionBtnState) {
+            sdf_collection_ib.setImageResource(R.drawable.collection)
+
+        } else {
+            sdf_collection_ib.setImageResource(R.drawable.collection_red)
+        }
+        collectionBtnState = !collectionBtnState;
     }
 
     private suspend fun getMusicDownLoadPath(iss: IssuesInfo) {

@@ -16,4 +16,12 @@
     <string name="nmn">简谱</string>
     <string name="next">下一步</string>
     <string name="ezy">和我一起变成偶像，拯救艾欧泽亚吧！</string>
+    <string name="collection">收藏</string>
+    <string name="search">搜索</string>
+    <string name="call">查看全部</string>
+    <string name="github_token">github Token</string>
+    <string name="upnumu">上传乐谱</string>
+    <string name="qypweb">琴艺谱</string>
+    <string name="zjpweb">找简谱网</string>
+    <string name="about">关于</string>
 </resources>

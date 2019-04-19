@@ -6,6 +6,7 @@ import com.github.paolorotolo.appintro.AppIntroFragment
 import org.commonmark.internal.Bracket.image
 import androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable
 import android.R.attr.description
+import android.R.attr.titleMarginBottom
 import android.content.Intent
 import android.graphics.Color
 import android.view.View
@@ -33,7 +34,7 @@ class IntroActivity : AppIntro() {
         //沉浸式状态栏适配
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         // 底部导航栏 背景透明
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);*/
+        */window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         val sliderPage = SliderPage()
         sliderPage.title = "搜索"
@@ -53,8 +54,12 @@ class IntroActivity : AppIntro() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        FUtils().saveToken(FNApplication.getContext(),"first","true")
+        // flag not first
+        FUtils().saveToken(FNApplication.getContext(),"first","false")
+        // first char must be * (not need
+      //  FUtils().saveToken(FNApplication.getContext(),"collection","*")
         startActivity(Intent(this,SearchActivity::class.java))
         finish()
     }
+
 }

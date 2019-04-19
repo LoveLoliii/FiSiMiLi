@@ -33,17 +33,20 @@ class SearchRepository private constructor(private val searchDao: SearchDao, pri
    suspend fun getSearchResultOnline(sort: String, order: String, q: String) = withContext(Dispatchers.IO) {
 Log.d("url",sort+order+q)
        // q is  je and url_source is add repo  +state:open+repo:zytx121/je
-       val url_source = FUtils().getToken(ctx = context,key = "url_source")
-       var x= "https://api.github.com/search/issues?q=$q+state:open+repo:zytx121/je+repo:$url_source&sort=$sort&order=$order"
+       var url_source = FUtils().getToken(ctx = context,key = "url_source")
+       if(url_source==""){
+           url_source ="zytx121/je"
+       }
+       var x= "https://api.github.com/search/issues?q=$q+state:open+repo:$url_source+repo:zytx121/je&sort=$sort&order=$order"
 
 
        token = FUtils().getToken(ctx = context,key = "token")
        if (token != ""){
-           x="https://api.github.com/search/issues?access_token=$token&q=$q+state:open+repo:zytx121/je+repo:$url_source&sort=$sort&order=$order"
+           x="https://api.github.com/search/issues?access_token=$token&q=$q+state:open+repo:$url_source+repo:zytx121/je&sort=$sort&order=$order"
        }else{
            access_token = FUtils().getToken(ctx = context,key = "access_token")
            if (access_token!=""){
-               x="https://api.github.com/search/issues?access_token=$token&q=$q+state:open+repo:zytx121/je+repo:$url_source&sort=$sort&order=$order"
+               x="https://api.github.com/search/issues?access_token=$token&q=$q+state:open+repo:$url_source+repo:zytx121/je&sort=$sort&order=$order"
            }
        }
        Log.d("getIssues:", x)
