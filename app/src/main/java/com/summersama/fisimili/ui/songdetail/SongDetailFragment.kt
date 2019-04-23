@@ -288,11 +288,13 @@ class SongDetailFragment : Fragment(), CoroutineScope {
             var c = FUtils().getToken(FNApplication.getContext(),"collection")
             c+= "*$isUrl"
             FUtils().saveToken(FNApplication.getContext(),"collection",c)
+            Toast.makeText(context,"收藏完毕,可在左侧收藏菜单中查看",Toast.LENGTH_SHORT).show()
         } else {
             // cancel
             var c = FUtils().getToken(FNApplication.getContext(),"collection")
             c = c.replace("*$isUrl","")
             FUtils().saveToken(FNApplication.getContext(),"collection",c)
+            Toast.makeText(context,"已取消收藏",Toast.LENGTH_SHORT).show()
         }
 
     }
