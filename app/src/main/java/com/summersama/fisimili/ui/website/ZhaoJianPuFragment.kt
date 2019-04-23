@@ -14,7 +14,6 @@ import android.webkit.WebViewClient
 
 import com.summersama.fisimili.R
 import com.summersama.fisimili.utils.ConstantUtils
-import kotlinx.android.synthetic.main.qin_yi_pu_fragment.*
 import kotlinx.android.synthetic.main.zhao_jian_pu_fragment.*
 
 class ZhaoJianPuFragment : Fragment() {

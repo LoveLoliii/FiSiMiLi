@@ -9,7 +9,7 @@
 + 使用了WebView在应用内访问琴艺谱和找简谱网,更新导航侧栏UI(4/18)
 + 添加了一个logo！
 + 现在可以通过按钮收藏简谱了，并通过左侧菜单中的收藏查看，通过点击到达具体页面。(4/23)
-+ [0.0.3版下载](https://github.com/LoveLoliii/FiSiMiLi/raw/master/app/release/app-release.apk)
++ [0.0.4版下载](https://github.com/LoveLoliii/FiSiMiLi/raw/master/app/release/app-release.apk)
 <p align="center">
     <img src="https://github.com/LoveLoliii/FiSiMiLi/blob/master/pic/Screenshot_1555559896.png" width="300" height="500">
 </p>
