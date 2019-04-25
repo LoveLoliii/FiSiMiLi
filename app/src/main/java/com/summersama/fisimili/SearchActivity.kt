@@ -52,8 +52,6 @@ class SearchActivity : AppCompatActivity() {
             Log.d("NavigationActivity", "Navigated to $dest")
         }
 
-        // make nav view fish auto action
-        //nhl_fish_fv.setRandomPoint(PointF(1f,1f))
     }
 
 

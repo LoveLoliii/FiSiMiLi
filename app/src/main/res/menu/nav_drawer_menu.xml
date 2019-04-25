@@ -30,13 +30,13 @@
     </group>
     <group>
         <item android:id="@+id/qinyipu"
-              android:title="@string/qypweb"
+              android:title="@string/other_site"
               android:icon="@drawable/web"
         />
-        <item android:id="@+id/zhaojianpu"
+<!--        <item android:id="@+id/zhaojianpu"
               android:title="@string/zjpweb"
               android:icon="@drawable/web"
-        />
+        />-->
 
     </group>
     <item android:id="@+id/about"
