@@ -153,7 +153,7 @@ class SearchFragment : Fragment() {
                     key = "version_code",
                     dValue = "1"
                 )
-                if (version_code >= updateInfo.vercode) {
+                if (version_code > updateInfo.vercode) {
                     //nothing
                 } else {
                     // show dialog
