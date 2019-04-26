@@ -33,6 +33,9 @@ open fun getToken(ctx:Context,key:String):String{
     // 默认使用JE的仓库
         return ctx.getSharedPreferences(key, MODE_PRIVATE).getString(key, "")!!
     }
+   open fun getToken(ctx: Context,name :String,key: String,dValue:String):String{
+        return ctx.getSharedPreferences(name, MODE_PRIVATE).getString(key,dValue)!!
+    }
 
     fun saveToken(context: Context, key: String, value: String) {
 

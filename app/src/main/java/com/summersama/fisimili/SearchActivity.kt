@@ -1,6 +1,7 @@
 package com.summersama.fisimili
 
 import android.app.Activity
+import android.app.Application
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PointF
@@ -18,9 +19,20 @@ import android.os.Build
 import android.system.Os
 import android.view.View
 import android.view.WindowManager
+import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.summersama.fisimili.data.UpdateInfo
+import com.summersama.fisimili.utils.FNApplication
+import com.summersama.fisimili.utils.FUtils
+import com.summersama.fisimili.utils.OkHttpUtil
 import com.summersama.fisimili.utils.TranslucentStatusUtil
 import kotlinx.android.synthetic.main.nav_header_layout.*
+import kotlinx.android.synthetic.main.search_activity.*
 import kotlinx.android.synthetic.main.top_bar_layout.*
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import java.io.IOException
 
 
 class SearchActivity : AppCompatActivity() {
@@ -51,9 +63,40 @@ class SearchActivity : AppCompatActivity() {
             }
             Log.d("NavigationActivity", "Navigated to $dest")
         }
-
+        getUpdateInfo()
     }
 
+    private fun getUpdateInfo() {
+        val info = applicationContext.packageManager.getPackageInfo(applicationContext.packageName,0)
+        val code = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            info.longVersionCode
+        } else {
+           info.versionCode.toLong()
+        }
+        OkHttpUtil["https://github.com/LoveLoliii/FiSiMiLi/raw/master/app/release/update.json"].enqueue(object :Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+
+                val g = Gson()
+                val updateInfo = g.fromJson(response.body()?.string(),UpdateInfo::class.java)
+                val version_code = FUtils().getToken(ctx = FNApplication.getContext(),name="app_info",key="version_code",dValue = "1")
+                if (version_code>= updateInfo.vercode){
+                    //nothing
+                }else{
+                    // show dialog
+                    Snackbar.make(nav_view,"123",Snackbar.LENGTH_SHORT)
+                        .setAction("下载") {
+                        Log.e("？","snackbar down")
+
+                        }
+                        .show()
+                }
+            }
+        })
+    }
 
 
     private fun setupNavigationMenu(navController: NavController) {

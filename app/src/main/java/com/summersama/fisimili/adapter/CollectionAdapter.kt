@@ -8,10 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.summersama.fisimili.R
 import com.summersama.fisimili.data.IssuesInfo
+import com.summersama.fisimili.utils.FNApplication
+import com.summersama.fisimili.utils.FUtils
 
 class CollectionAdapter(val list:List<String>, val ctx: Context) :
     RecyclerView.Adapter<CollectionAdapter.CollectionHolder>() {
@@ -29,27 +32,34 @@ class CollectionAdapter(val list:List<String>, val ctx: Context) :
         if(list.size-1 == position){
 
         }
-        holder.textView.text = list[position]
+        var url = list[position];
+        if (!url.contains("@")){
+            url = list[position]+"@"+list[position]
+        }
+        val ul = url.split("@")
+        holder.textView.text =ul[1]
         //  holder.bodyTx.setText(list[position].body)
         holder.textView.setOnClickListener{
             val navController = Navigation.findNavController(ctx as Activity, R.id.sf)
-                if (list[position].contains("https://api.github.com")){
+                if (url.contains("https://api.github.com")){
                     val bundle:Bundle = Bundle()
-                    bundle.putString("url",list[position])
+                    bundle.putString("url",ul[0])
                     navController.navigate(R.id.songDetailFragment,bundle)
-                }else if(list[position].contains("http://m.qinyipu.com")){
-                    val bundle:Bundle = Bundle()
-                    bundle.putString("url",list[position])
+                }else /*if(list[position].contains("http://m.qinyipu.com"))*/{
+                    val bundle = Bundle()
+                    bundle.putString("url",ul[0])
                     navController.navigate(R.id.qinyipu,bundle)
                 }
-            /*  val intent:Intent=Intent()
-              intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-              intent.setClass(ctx,SongDetailActivity::class.java)
-              intent.putExtra("data",list[position])
-              ctx.startActivity(intent)*/
-            // 通过导航视图进行转移
-         /*
-           */
+
+        }
+        holder.textView.setOnLongClickListener {
+            var collectXml = FUtils().getToken(FNApplication.getContext(),"url_collect")
+            collectXml = collectXml.replace("*${list[position]}","")
+            FUtils().saveToken(FNApplication.getContext(),"url_collect",collectXml)
+            notifyItemRemoved(position);
+            notifyDataSetChanged()
+            Toast.makeText(FNApplication.getContext(),"已删除",Toast.LENGTH_SHORT).show()
+            true
         }
     }
 
