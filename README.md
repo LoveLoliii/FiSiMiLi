@@ -10,7 +10,8 @@
 + 添加了一个logo！
 + 现在可以通过按钮收藏简谱了，并通过左侧菜单中的收藏查看，通过点击到达具体页面。(4/23)
 + 将其他网站的链接放在一个页面，方便使用。
-+ [0.0.5版下载](https://github.com/LoveLoliii/FiSiMiLi/raw/master/app/release/app-release.apk)
++ 增加版本检测，提高收藏item可读性。
++ [0.0.6版下载](https://github.com/LoveLoliii/FiSiMiLi/raw/master/app/release/app-release.apk)
 <p align="center">
     <img src="https://github.com/LoveLoliii/FiSiMiLi/blob/master/pic/Screenshot_1555559896.png" width="300" height="500">
 </p>
