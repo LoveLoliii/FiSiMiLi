@@ -147,15 +147,16 @@ class SearchFragment : Fragment() {
 
                 val g = Gson()
                 val updateInfo = g.fromJson(response.body()?.string(), UpdateInfo::class.java)
-                val version_code = FUtils().getToken(
+                val version_code =  /* FUtils().getToken(
                     ctx = FNApplication.getContext(),
                     name = "app_info",
                     key = "version_code",
                     dValue = "1"
-                )
-                if (version_code > updateInfo.vercode) {
+                )*/
+                if (code!!.toInt() >= updateInfo.vercode.toInt()) {
                     //nothing
                 } else {
+                    Log.e("code","${code}---${updateInfo.vercode}")
                     // show dialog
                     FNApplication.topActivity().runOnUiThread{
                        // Toast.makeText(a, getString(R.string.find_new_version), Toast.LENGTH_SHORT).show()
