@@ -1,5 +1,6 @@
 package com.summersama.fisimili.ui.website
 
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -43,25 +44,31 @@ class QinYiPuFragment : Fragment() {
 
 
         val bundle = arguments
-        var url = ""
+        var urlx = ""
         try {
-             url = bundle!!.getString("url")!!
-            if (url ==""){
-                url = ConstantUtils.QINYIPU_URL
+             urlx = bundle!!.getString("url")!!
+            if (urlx ==""){
+                urlx= ConstantUtils.QINYIPU_URL
             }
 
         }catch (e:Exception){
-            url = ConstantUtils.QINYIPU_URL
+            urlx = ConstantUtils.QINYIPU_URL
         }
 
-        qyp_main_wv.webViewClient= WebViewClient()
-        qyp_main_wv.webChromeClient = object : WebChromeClient(){
-            override fun onReceivedTitle(view: WebView?, title: String?) {
-                getWebTitle()
-            }
-        }
+       qyp_main_wv.webViewClient=object :WebViewClient(){
+           override fun onPageFinished(view: WebView?, url: String?) {
+               super.onPageFinished(view, url)
+               urlx = url!!
+               getWebTitle()
+           }
 
-        qyp_main_wv.loadUrl(url)
+
+
+
+       }
+
+
+        qyp_main_wv.loadUrl(urlx)
         qyp_main_wv .setOnKeyListener(object :View.OnKeyListener {
             override fun onKey(view:View, keyCode:Int, keyEvent:KeyEvent) :Boolean{
                 if (keyEvent.action == KeyEvent.ACTION_DOWN) {
@@ -79,7 +86,9 @@ class QinYiPuFragment : Fragment() {
         });
         qypf_collection_fb.setOnClickListener {
             Toast.makeText(context,"url:${qyp_main_wv.url}",Toast.LENGTH_SHORT).show()
+            Log.e("url",qyp_main_wv.url+":"+qyp_main_wv.title)
             var urlC = FUtils().getToken(FNApplication.getContext(),"url_collect")
+
             if (urlC.contains(qyp_main_wv.url)){
                     Toast.makeText(context,"曾经收藏过",Toast.LENGTH_SHORT).show()
             }else{
