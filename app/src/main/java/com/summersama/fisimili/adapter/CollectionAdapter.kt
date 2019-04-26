@@ -12,11 +12,10 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.summersama.fisimili.R
-import com.summersama.fisimili.data.IssuesInfo
 import com.summersama.fisimili.utils.FNApplication
 import com.summersama.fisimili.utils.FUtils
 
-class CollectionAdapter(val list:List<String>, val ctx: Context) :
+class CollectionAdapter(var list:MutableList<String>, val ctx: Context) :
     RecyclerView.Adapter<CollectionAdapter.CollectionHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionHolder {
@@ -56,13 +55,13 @@ class CollectionAdapter(val list:List<String>, val ctx: Context) :
             var collectXml = FUtils().getToken(FNApplication.getContext(),"url_collect")
             collectXml = collectXml.replace("*${list[position]}","")
             FUtils().saveToken(FNApplication.getContext(),"url_collect",collectXml)
+            list.remove(list[position])
             notifyItemRemoved(position);
             notifyDataSetChanged()
             Toast.makeText(FNApplication.getContext(),"已删除",Toast.LENGTH_SHORT).show()
             true
         }
     }
-
     class CollectionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView:TextView = itemView.findViewById(R.id.rvi_title_tx)
         //  val bodyTx:TextView = itemView.findViewById(R.id.rvi_body_tx)

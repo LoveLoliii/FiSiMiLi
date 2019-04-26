@@ -42,7 +42,7 @@ open fun getToken(ctx:Context,key:String):String{
         val sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString(key, value)
-        editor.apply()//异步执行 过多 过大apply在结束activity时可能会造成application no response --> ANR
+        editor.commit()//异步执行 过多 过大apply在结束activity时可能会造成application no response --> ANR
 
     }
 

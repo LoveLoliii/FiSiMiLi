@@ -1,11 +1,14 @@
   package com.summersama.fisimili.ui.collection
 
+import android.app.Activity
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -45,6 +48,7 @@ import kotlinx.android.synthetic.main.collection_fragment.*
         }
         layoutManager.orientation = RecyclerView.VERTICAL
         cf_recycle_view.layoutManager = layoutManager
+
         cf_recycle_view.adapter = adapter
 
     }

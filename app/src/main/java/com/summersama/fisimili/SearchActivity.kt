@@ -63,40 +63,10 @@ class SearchActivity : AppCompatActivity() {
             }
             Log.d("NavigationActivity", "Navigated to $dest")
         }
-        getUpdateInfo()
+
     }
 
-    private fun getUpdateInfo() {
-        val info = applicationContext.packageManager.getPackageInfo(applicationContext.packageName,0)
-        val code = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            info.longVersionCode
-        } else {
-           info.versionCode.toLong()
-        }
-        OkHttpUtil["https://github.com/LoveLoliii/FiSiMiLi/raw/master/app/release/update.json"].enqueue(object :Callback{
-            override fun onFailure(call: Call, e: IOException) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
 
-            override fun onResponse(call: Call, response: Response) {
-
-                val g = Gson()
-                val updateInfo = g.fromJson(response.body()?.string(),UpdateInfo::class.java)
-                val version_code = FUtils().getToken(ctx = FNApplication.getContext(),name="app_info",key="version_code",dValue = "1")
-                if (version_code>= updateInfo.vercode){
-                    //nothing
-                }else{
-                    // show dialog
-                    Snackbar.make(nav_view,"123",Snackbar.LENGTH_SHORT)
-                        .setAction("下载") {
-                        Log.e("？","snackbar down")
-
-                        }
-                        .show()
-                }
-            }
-        })
-    }
 
 
     private fun setupNavigationMenu(navController: NavController) {
