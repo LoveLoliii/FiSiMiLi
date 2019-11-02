@@ -140,8 +140,7 @@ class SearchFragment : Fragment() {
         OkHttpUtil["https://github.com/LoveLoliii/FiSiMiLi/raw/master/app/release/update.json"].enqueue(object :
             Callback {
             override fun onFailure(call: Call, e: IOException) {
-
-                Log.e("ok",e.message)
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onResponse(call: Call, response: Response) {
