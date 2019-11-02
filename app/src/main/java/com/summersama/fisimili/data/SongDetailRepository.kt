@@ -45,7 +45,7 @@ class SongDetailRepository private constructor(private val searchDao: SongDetail
 
         }.type
         // fixme 需要处理没有搜索到的情况
-        val list: List<SearchSongInfo> = g.fromJson(s, type)
+        val list: List<SearchSongInfo> = g.fromJson("[]", type)
         if (list.size==0)
         ""
         else{
