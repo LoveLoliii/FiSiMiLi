@@ -34,18 +34,20 @@ class SongDetailRepository private constructor(private val searchDao: SongDetail
     suspend fun getPath(key:String) = withContext(Dispatchers.IO){
         val url = ConstantUtils.MOLI_URL+"api/?callback=jQuery22408246496842419309_"  + System.currentTimeMillis().toString() + "&types=search&count=10&source=tencent&pages=1&name=" + URLEncoder.encode(key,"utf-8") + "&cache=9a94264bceaad353ef72684c2f01bb76&_=" + System.currentTimeMillis()
         Log.d("url",url)
-        val p = network.getDownloadInfo(url);
+        // 获取在线音乐播放地址api失效 不再使用
+        //val p = network.getDownloadInfo(url);
 
-        var s = p
-        s = s.replaceBefore("[", "")
-        s = s.replaceAfterLast("]", "")
+        //var s = p
+       // s = s.replaceBefore("[", "")
+       // s = s.replaceAfterLast("]", "")
+        var s = "[]"
         val g: Gson = Gson()
 
         val type = object : TypeToken<List<SearchSongInfo>>() {
 
         }.type
         // fixme 需要处理没有搜索到的情况
-        val list: List<SearchSongInfo> = g.fromJson(s, type)
+        val list: List<SearchSongInfo> = g.fromJson("[]", type)
         if (list.size==0)
         ""
         else{
